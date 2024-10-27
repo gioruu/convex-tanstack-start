@@ -11,16 +11,23 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as UseSuspenseQueryImport } from './routes/useSuspenseQuery'
 import { Route as SubsequentQueriesImport } from './routes/subsequent-queries'
 import { Route as SimpleSiblingQueriesImport } from './routes/simple-sibling-queries'
 import { Route as RecommendedPatternsImport } from './routes/recommended-patterns'
 import { Route as ReactQueryImport } from './routes/react-query'
-import { Route as QueryCachingPrefetchingImport } from './routes/query-caching-prefetching'
 import { Route as LoadersImport } from './routes/loaders'
+import { Route as GcTimeImport } from './routes/gcTime'
 import { Route as ConsistentViewsImport } from './routes/consistent-views'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const UseSuspenseQueryRoute = UseSuspenseQueryImport.update({
+  id: '/useSuspenseQuery',
+  path: '/useSuspenseQuery',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const SubsequentQueriesRoute = SubsequentQueriesImport.update({
   id: '/subsequent-queries',
@@ -46,15 +53,15 @@ const ReactQueryRoute = ReactQueryImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const QueryCachingPrefetchingRoute = QueryCachingPrefetchingImport.update({
-  id: '/query-caching-prefetching',
-  path: '/query-caching-prefetching',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const LoadersRoute = LoadersImport.update({
   id: '/loaders',
   path: '/loaders',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GcTimeRoute = GcTimeImport.update({
+  id: '/gcTime',
+  path: '/gcTime',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,18 +95,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsistentViewsImport
       parentRoute: typeof rootRoute
     }
+    '/gcTime': {
+      id: '/gcTime'
+      path: '/gcTime'
+      fullPath: '/gcTime'
+      preLoaderRoute: typeof GcTimeImport
+      parentRoute: typeof rootRoute
+    }
     '/loaders': {
       id: '/loaders'
       path: '/loaders'
       fullPath: '/loaders'
       preLoaderRoute: typeof LoadersImport
-      parentRoute: typeof rootRoute
-    }
-    '/query-caching-prefetching': {
-      id: '/query-caching-prefetching'
-      path: '/query-caching-prefetching'
-      fullPath: '/query-caching-prefetching'
-      preLoaderRoute: typeof QueryCachingPrefetchingImport
       parentRoute: typeof rootRoute
     }
     '/react-query': {
@@ -130,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SubsequentQueriesImport
       parentRoute: typeof rootRoute
     }
+    '/useSuspenseQuery': {
+      id: '/useSuspenseQuery'
+      path: '/useSuspenseQuery'
+      fullPath: '/useSuspenseQuery'
+      preLoaderRoute: typeof UseSuspenseQueryImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -138,35 +152,38 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRoute
-  '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
+  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRoute
-  '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
+  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRoute
-  '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
+  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
 }
 
 export interface FileRouteTypes {
@@ -174,55 +191,60 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/consistent-views'
+    | '/gcTime'
     | '/loaders'
-    | '/query-caching-prefetching'
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
+    | '/useSuspenseQuery'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/consistent-views'
+    | '/gcTime'
     | '/loaders'
-    | '/query-caching-prefetching'
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
+    | '/useSuspenseQuery'
   id:
     | '__root__'
     | '/'
     | '/consistent-views'
+    | '/gcTime'
     | '/loaders'
-    | '/query-caching-prefetching'
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
+    | '/useSuspenseQuery'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsistentViewsRoute: typeof ConsistentViewsRoute
+  GcTimeRoute: typeof GcTimeRoute
   LoadersRoute: typeof LoadersRoute
-  QueryCachingPrefetchingRoute: typeof QueryCachingPrefetchingRoute
   ReactQueryRoute: typeof ReactQueryRoute
   RecommendedPatternsRoute: typeof RecommendedPatternsRoute
   SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
   SubsequentQueriesRoute: typeof SubsequentQueriesRoute
+  UseSuspenseQueryRoute: typeof UseSuspenseQueryRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsistentViewsRoute: ConsistentViewsRoute,
+  GcTimeRoute: GcTimeRoute,
   LoadersRoute: LoadersRoute,
-  QueryCachingPrefetchingRoute: QueryCachingPrefetchingRoute,
   ReactQueryRoute: ReactQueryRoute,
   RecommendedPatternsRoute: RecommendedPatternsRoute,
   SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
   SubsequentQueriesRoute: SubsequentQueriesRoute,
+  UseSuspenseQueryRoute: UseSuspenseQueryRoute,
 }
 
 export const routeTree = rootRoute
@@ -239,12 +261,13 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/consistent-views",
+        "/gcTime",
         "/loaders",
-        "/query-caching-prefetching",
         "/react-query",
         "/recommended-patterns",
         "/simple-sibling-queries",
-        "/subsequent-queries"
+        "/subsequent-queries",
+        "/useSuspenseQuery"
       ]
     },
     "/": {
@@ -253,11 +276,11 @@ export const routeTree = rootRoute
     "/consistent-views": {
       "filePath": "consistent-views.tsx"
     },
+    "/gcTime": {
+      "filePath": "gcTime.tsx"
+    },
     "/loaders": {
       "filePath": "loaders.tsx"
-    },
-    "/query-caching-prefetching": {
-      "filePath": "query-caching-prefetching.tsx"
     },
     "/react-query": {
       "filePath": "react-query.tsx"
@@ -270,6 +293,9 @@ export const routeTree = rootRoute
     },
     "/subsequent-queries": {
       "filePath": "subsequent-queries.tsx"
+    },
+    "/useSuspenseQuery": {
+      "filePath": "useSuspenseQuery.tsx"
     }
   }
 }

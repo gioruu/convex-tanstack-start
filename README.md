@@ -25,6 +25,8 @@ they update live! This is provided by @convex-dev/react-query.
 
 (simple demo: list of messages in a channel. New messages are being sent so we can tell it's live.)
 
+This is a new channel
+
 ### Loaders and prefetching
 
 But the cooler bit of React Query integration is that you can preload in a loader!

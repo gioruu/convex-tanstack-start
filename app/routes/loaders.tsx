@@ -19,13 +19,19 @@ export default function BlockingAndStreaming() {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-3xl font-bold">Blocking and Streaming</h2>
-      <p className="text-lg">
-        This example demonstrates the difference between blocking and streaming
-        data fetching. Click on the buttons below to see how each approach
-        affects page loading.
+      <h2 className="text-3xl font-bold">Loaders and Prefetching</h2>
+      <p>
+        But the cooler bit of React Query integration is preloading a query in a
+        loader! Loaders in Start are isomorphic: they run on the server during
+        SSR and the run on the client the rest of the time.
       </p>
-
+      TODO six different pages. All are cache-busted. How useQuery wiht no
+      loader, useQuer with waiting, and awaiting ensureQueryData
+      <p>
+        This page shows all the messages in a channel. You can change channels!
+        You can see ensureQuery and preloadQuery working differently.
+      </p>
+      <p>Watch Tanner's video for more!</p>
       <Card>
         <CardHeader>
           <CardTitle>Code Example</CardTitle>
@@ -33,61 +39,7 @@ export default function BlockingAndStreaming() {
             A simple example of blocking vs streaming data fetching
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <pre className="bg-muted p-4 rounded-md overflow-x-auto">
-            <code>{`
-// Blocking fetch
-export async function BlockingComponent() {
-  const data = await fetchData() // This blocks rendering until data is fetched
-  return <div>{data}</div>
-}
-
-// Streaming fetch
-import { Suspense } from 'react'
-
-export function StreamingComponent() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AsyncDataComponent />
-    </Suspense>
-  )
-}
-
-async function AsyncDataComponent() {
-  const data = await fetchData() // This doesn't block rendering
-  return <div>{data}</div>
-}
-            `}</code>
-          </pre>
-        </CardContent>
       </Card>
-
-      <div className="space-y-4">
-        <div className="flex space-x-4">
-          <Button onClick={() => setCurrentPage('blocking')}>
-            Blocking Page
-          </Button>
-          <Button onClick={() => setCurrentPage('streaming')}>
-            Streaming Page
-          </Button>
-        </div>
-        <Card>
-          <CardContent className="p-4">
-            {currentPage === 'blocking' && (
-              <div>
-                This is the blocking page. In a real application, it would load
-                all data before rendering.
-              </div>
-            )}
-            {currentPage === 'streaming' && (
-              <div>
-                This is the streaming page. In a real application, it would
-                render immediately and stream in data as it becomes available.
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
     </div>
   )
 }

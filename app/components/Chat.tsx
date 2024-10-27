@@ -78,7 +78,7 @@ export default function Component({ useSuspense }: { useSuspense: boolean }) {
           <h2 className="text-lg font-semibold">
             {useSuspense
               ? "SSR'd component pops in finished"
-              : 'Client-only uses skeletons'}
+              : 'Client-only data initially renders skeletons'}
           </h2>
         </CardHeader>
         <CardContent className="h-[250px] overflow-y-auto">
