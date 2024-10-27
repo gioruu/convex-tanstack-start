@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/blocking-and-streaming')({
+export const Route = createFileRoute('/loaders')({
   component: BlockingAndStreaming,
 })
 

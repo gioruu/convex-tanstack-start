@@ -8,5 +8,8 @@ export default defineSchema({
   }),
   users: defineTable({
     name: v.string(),
+  }).index('by_name', ['name']),
+  channel: defineTable({
+    name: v.string(),
   }),
 })

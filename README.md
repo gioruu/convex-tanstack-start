@@ -16,7 +16,7 @@ Using Convex with TanStack Start provides a few extras:
 
 This app is written in TanStack Query, you can see the source!
 
-## React Query navigation: preload or wait for load in the loader!
+## React Query integration: preload or wait for load in the loader!
 
 General React Query integration. This is the first thing to show.
 
@@ -124,3 +124,22 @@ Make this site look good somehow. Spend a weekend caring about CSS.
 host this at https://labs.convex.dev/tanstack-start
 
 Make this a public demo!
+
+### Old talking points
+
+Data that server-side renders and updates live: updates come in over a WebSocket instead of requiring polling
+Live Convex queries can be used with TanStack Query useQuery, useSuspenseQuery, etc. hooks
+Automatic query invalidation: when a mutation succeeds all queries it affects update automatically
+Consistent snapshot reads of database state: /messages will never return a foreign key for a /user that doesn't exist until the next fetch
+Selective optimistic update rollback: when a mutation succeeds only its update will be rolled back, with other optimistic updates reapplied
+
+### Quickstart
+
+Quickstart
+Create a TanStack Start project
+Add React Query to TanStack
+Add Convex
+
+Add @convex-dev/react-query
+
+          https://github.com/get-convex/convex-react-query

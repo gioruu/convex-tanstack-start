@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 
@@ -20,67 +20,115 @@ export default function LandingPage() {
     },
     {
       name: 'TanStack Query',
-      description: 'Asynchronous state management with queries and mutations.',
+      description:
+        'AKA React Query. Asynchronous state management for server-side state like queries and mutations.',
     },
   ]
 
-  const benefits = [
-    'Data that server-side renders and updates live: updates come in over a WebSocket instead of requiring polling',
-    'Live Convex queries can be used with TanStack Query useQuery, useSuspenseQuery, etc. hooks',
-    'Automatic query invalidation: when a mutation succeeds all queries it affects update automatically',
-    "Consistent snapshot reads of database state: /messages will never return a foreign key for a /user that doesn't exist until the next fetch",
-    'Selective optimistic update rollback: when a mutation succeeds only its update will be rolled back, with other optimistic updates reapplied',
+  const features = [
+    {
+      title: 'Live-updating Queries',
+      description: 'Supercharging React Query with live updates from Convex.',
+      link: '/react-query',
+    },
+    {
+      title: 'Loaders and prefetching',
+      description: 'Preload or wait for data in the loader.',
+      link: '/loaders',
+    },
+    {
+      title: 'Staying subscribed to queries',
+      description: "Data not currently rendered doesn't need to be stale.",
+      link: '/use-suspense-query',
+    },
+    {
+      title: 'useSuspenseQuery',
+      description:
+        'Block on the server and client. Isomorphic data fetching with a single hook.',
+      link: '/use-suspense-query',
+    },
+    {
+      title: 'Consistent Client Views',
+      description:
+        'Convex ensures consistent, logical timestamp views of the database.',
+      link: '/consistent-views',
+    },
+    {
+      title: 'Recommended Patterns',
+      description:
+        'Best practices for using React Query, Convex, and TanStack Start together.',
+      link: '/recommended-patterns',
+    },
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
-      <div className="container mx-auto px-4 py-16">
-        <p className="text-lg">
-          This page site is writte with TanStack Start, check out the code to
-          see the source.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {tools.map((tool, index) => (
+    <div>
+      <h1 className="text-3xl font-bold mb-4">
+        Render on the server, update in the browser.
+      </h1>
+      <p className="text-lg">
+        Convex queries update without polling so your data is never out of sync.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8">
+        {tools.map((tool, index) => (
+          <Card
+            key={index}
+            className="bg-background/80 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-all duration-300"
+          >
+            <CardHeader>
+              <CardTitle className="text-3xl font-extrabold text-primary text-center">
+                {tool.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-center text-muted-foreground">
+                {tool.description}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <p className="text-lg mb-4">
+        This is a TanStack Start site demonstrating patterns for using Convex
+        with TanStack Start. Check out the{' '}
+        <a
+          href="https://github.com/get-convex/tanstack-start-guide/"
+          className="text-primary hover:underline"
+        >
+          source on GitHub
+        </a>
+        .
+      </p>
+      <h2 className="text-2xl font-bold mb-8">
+        <a
+          href="https://docs.convex.dev/quickstart/tanstack"
+          className="text-primary hover:underline"
+        >
+          Follow the Quickstart to get going
+        </a>
+      </h2>
+
+      <p className="text-lg mb-4">
+        Details about how things work once they're hooked up.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {features.map((feature, index) => (
+          <Link to={feature.link}>
             <Card
               key={index}
-              className="bg-background/80 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-all duration-300"
+              className="bg-background/80 backdrop-blur-sm border-primary/10"
             >
               <CardHeader>
-                <CardTitle className="text-3xl font-extrabold text-primary text-center">
-                  {tool.name}
+                <CardTitle className="text-2xl font-bold">
+                  {feature.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-center text-muted-foreground">
-                  {tool.description}
-                </p>
+              <CardContent className="space-y-4">
+                <p>{feature.description}</p>
               </CardContent>
             </Card>
-          ))}
-        </div>
-        <h2 className="text-3xl font-bold text-center mb-8">
-          Use Convex with TanStack Start and Query to get
-        </h2>
-        This should just be a list of the other pages.
-        <Card className="bg-background/80 backdrop-blur-sm border-primary/10">
-          <CardContent className="pt-6">
-            <ul className="space-y-4">
-              {benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start">
-                  <CheckCircledIcon className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-1" />
-                  <span className="text-muted-foreground">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <h1 className="text-3xl font-bold">Getting Started</h1>
-        <p className="text-lg">Add Reat Query to TanStack</p>
-        <p className="text-lg">Add Convex</p>
-        <p className="text-lg">
-          Add @convex-dev/react-query
-          https://github.com/get-convex/convex-react-query
-        </p>
+          </Link>
+        ))}
       </div>
     </div>
   )

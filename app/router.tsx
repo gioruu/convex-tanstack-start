@@ -8,7 +8,11 @@ import { DefaultCatchBoundary } from './components/DefaultCatchBoundary'
 import { NotFound } from './components/NotFound'
 
 export function createRouter() {
-  const CONVEX_URL = (import.meta as any).env.VITE_CONVEX_URL!
+  let CONVEX_URL = (import.meta as any).env.VITE_CONVEX_URL!
+  // hardcoded, Tom's dev instance
+  // this is temporary
+  const BACKUP_CONVEX_URL = 'https://coordinated-lion-120.convex.cloud'
+  CONVEX_URL = CONVEX_URL || BACKUP_CONVEX_URL
   if (!CONVEX_URL) {
     throw new Error('missing VITE_CONVEX_URL envar')
   }

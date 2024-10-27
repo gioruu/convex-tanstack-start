@@ -8,6 +8,22 @@ export const list = query(async (ctx, { cacheBust }) => {
   return await ctx.db.query('messages').collect()
 })
 
+export const listMessages = query({
+  args: { cacheBust: v.any() },
+  handler: async (ctx, args) => {
+    const _unused = args.cacheBust
+    const messages = await ctx.db.query('messages').order('desc').take(100)
+    const messagesWithAuthor = await Promise.all(
+      messages.map(async (message) => {
+        const user = await ctx.db.get(message.user)
+        // Join the count of likes with the message data
+        return { ...message, user: user?.name || 'anonymous' }
+      }),
+    )
+    return messagesWithAuthor
+  },
+})
+
 export const count = query(async (ctx, { cacheBust }) => {
   const _unused = cacheBust
   return (await ctx.db.query('messages').collect()).length
@@ -76,3 +92,28 @@ export const clear = mutation(async (ctx) => {
     await ctx.db.delete(user._id)
   }
 })
+
+export const sendMessage = mutation(
+  async (ctx, { user, body }: { user: string; body: string }) => {
+    // userId ought to match User /d+
+    // until every user gets their own channel, use simulated messages
+    const cleanBody = madlib`${greetings} ${names}${punc} ${text}`
+    const existingUser = await ctx.db
+      .query('users')
+      .withIndex('by_name')
+      .filter((q) => q.eq(q.field('name'), user))
+      .unique()
+    let userId =
+      existingUser?._id || (await ctx.db.insert('users', { name: user }))
+    await ctx.db.insert('messages', { user: userId, body: cleanBody })
+  },
+)
+
+export const simulateTraffic = mutation(async (ctx) => {
+  // enable traffic simulation
+  //ctx.scheduler.runAfter(0, functionReference)
+})
+
+/*
+export const simulateTraffic = mutation(async (ctx) => {})
+*/

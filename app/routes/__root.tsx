@@ -71,18 +71,23 @@ export default function RootLayout({
           <nav>
             <ul className="flex space-x-4">
               <li>
-                <Link to="/live-queries-ssr" {...linkProps}>
-                  <Button variant="ghost">Live Queries SSR</Button>
+                <Link to="/react-query" {...linkProps}>
+                  <Button variant="ghost">Live Queries and SSR</Button>
                 </Link>
               </li>
               <li>
-                <Link to="/query-caching-prefetching" {...linkProps}>
-                  <Button variant="ghost">Query Caching</Button>
+                <Link to="/loaders" {...linkProps}>
+                  <Button variant="ghost">Loaders</Button>
                 </Link>
               </li>
               <li>
-                <Link to="/blocking-and-streaming" {...linkProps}>
-                  <Button variant="ghost">Blocking & Streaming</Button>
+                <Link to="/gcTime" {...linkProps}>
+                  <Button variant="ghost">Staying subscribed</Button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/useSuspenseQuery" {...linkProps}>
+                  <Button variant="ghost">useSuspenseQuery</Button>
                 </Link>
               </li>
               <li>
@@ -91,20 +96,17 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link to="/simple-sibling-queries" {...linkProps}>
-                  <Button variant="ghost">Consistent Views</Button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/subsequent-queries" {...linkProps}>
-                  <Button variant="ghost">Consistent Views</Button>
+                <Link to="/recommended-patterns" {...linkProps}>
+                  <Button variant="ghost">Recommendations</Button>
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
       </header>
-      <main>{children}</main>
+      <main className="min-h-screen bg-gradient-to-b from-background to-secondary">
+        <div className="container mx-auto px-4 py-4">{children}</div>
+      </main>
     </div>
   )
 }

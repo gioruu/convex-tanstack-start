@@ -13,10 +13,11 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SubsequentQueriesImport } from './routes/subsequent-queries'
 import { Route as SimpleSiblingQueriesImport } from './routes/simple-sibling-queries'
+import { Route as RecommendedPatternsImport } from './routes/recommended-patterns'
+import { Route as ReactQueryImport } from './routes/react-query'
 import { Route as QueryCachingPrefetchingImport } from './routes/query-caching-prefetching'
-import { Route as LiveQueriesSsrImport } from './routes/live-queries-ssr'
+import { Route as LoadersImport } from './routes/loaders'
 import { Route as ConsistentViewsImport } from './routes/consistent-views'
-import { Route as BlockingAndStreamingImport } from './routes/blocking-and-streaming'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -33,27 +34,33 @@ const SimpleSiblingQueriesRoute = SimpleSiblingQueriesImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const RecommendedPatternsRoute = RecommendedPatternsImport.update({
+  id: '/recommended-patterns',
+  path: '/recommended-patterns',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ReactQueryRoute = ReactQueryImport.update({
+  id: '/react-query',
+  path: '/react-query',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const QueryCachingPrefetchingRoute = QueryCachingPrefetchingImport.update({
   id: '/query-caching-prefetching',
   path: '/query-caching-prefetching',
   getParentRoute: () => rootRoute,
 } as any)
 
-const LiveQueriesSsrRoute = LiveQueriesSsrImport.update({
-  id: '/live-queries-ssr',
-  path: '/live-queries-ssr',
+const LoadersRoute = LoadersImport.update({
+  id: '/loaders',
+  path: '/loaders',
   getParentRoute: () => rootRoute,
 } as any)
 
 const ConsistentViewsRoute = ConsistentViewsImport.update({
   id: '/consistent-views',
   path: '/consistent-views',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const BlockingAndStreamingRoute = BlockingAndStreamingImport.update({
-  id: '/blocking-and-streaming',
-  path: '/blocking-and-streaming',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,13 +81,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/blocking-and-streaming': {
-      id: '/blocking-and-streaming'
-      path: '/blocking-and-streaming'
-      fullPath: '/blocking-and-streaming'
-      preLoaderRoute: typeof BlockingAndStreamingImport
-      parentRoute: typeof rootRoute
-    }
     '/consistent-views': {
       id: '/consistent-views'
       path: '/consistent-views'
@@ -88,11 +88,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsistentViewsImport
       parentRoute: typeof rootRoute
     }
-    '/live-queries-ssr': {
-      id: '/live-queries-ssr'
-      path: '/live-queries-ssr'
-      fullPath: '/live-queries-ssr'
-      preLoaderRoute: typeof LiveQueriesSsrImport
+    '/loaders': {
+      id: '/loaders'
+      path: '/loaders'
+      fullPath: '/loaders'
+      preLoaderRoute: typeof LoadersImport
       parentRoute: typeof rootRoute
     }
     '/query-caching-prefetching': {
@@ -100,6 +100,20 @@ declare module '@tanstack/react-router' {
       path: '/query-caching-prefetching'
       fullPath: '/query-caching-prefetching'
       preLoaderRoute: typeof QueryCachingPrefetchingImport
+      parentRoute: typeof rootRoute
+    }
+    '/react-query': {
+      id: '/react-query'
+      path: '/react-query'
+      fullPath: '/react-query'
+      preLoaderRoute: typeof ReactQueryImport
+      parentRoute: typeof rootRoute
+    }
+    '/recommended-patterns': {
+      id: '/recommended-patterns'
+      path: '/recommended-patterns'
+      fullPath: '/recommended-patterns'
+      preLoaderRoute: typeof RecommendedPatternsImport
       parentRoute: typeof rootRoute
     }
     '/simple-sibling-queries': {
@@ -123,20 +137,22 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blocking-and-streaming': typeof BlockingAndStreamingRoute
   '/consistent-views': typeof ConsistentViewsRoute
-  '/live-queries-ssr': typeof LiveQueriesSsrRoute
+  '/loaders': typeof LoadersRoute
   '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
+  '/react-query': typeof ReactQueryRoute
+  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blocking-and-streaming': typeof BlockingAndStreamingRoute
   '/consistent-views': typeof ConsistentViewsRoute
-  '/live-queries-ssr': typeof LiveQueriesSsrRoute
+  '/loaders': typeof LoadersRoute
   '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
+  '/react-query': typeof ReactQueryRoute
+  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
 }
@@ -144,10 +160,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/blocking-and-streaming': typeof BlockingAndStreamingRoute
   '/consistent-views': typeof ConsistentViewsRoute
-  '/live-queries-ssr': typeof LiveQueriesSsrRoute
+  '/loaders': typeof LoadersRoute
   '/query-caching-prefetching': typeof QueryCachingPrefetchingRoute
+  '/react-query': typeof ReactQueryRoute
+  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
 }
@@ -156,28 +173,31 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blocking-and-streaming'
     | '/consistent-views'
-    | '/live-queries-ssr'
+    | '/loaders'
     | '/query-caching-prefetching'
+    | '/react-query'
+    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blocking-and-streaming'
     | '/consistent-views'
-    | '/live-queries-ssr'
+    | '/loaders'
     | '/query-caching-prefetching'
+    | '/react-query'
+    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
   id:
     | '__root__'
     | '/'
-    | '/blocking-and-streaming'
     | '/consistent-views'
-    | '/live-queries-ssr'
+    | '/loaders'
     | '/query-caching-prefetching'
+    | '/react-query'
+    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/subsequent-queries'
   fileRoutesById: FileRoutesById
@@ -185,20 +205,22 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlockingAndStreamingRoute: typeof BlockingAndStreamingRoute
   ConsistentViewsRoute: typeof ConsistentViewsRoute
-  LiveQueriesSsrRoute: typeof LiveQueriesSsrRoute
+  LoadersRoute: typeof LoadersRoute
   QueryCachingPrefetchingRoute: typeof QueryCachingPrefetchingRoute
+  ReactQueryRoute: typeof ReactQueryRoute
+  RecommendedPatternsRoute: typeof RecommendedPatternsRoute
   SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
   SubsequentQueriesRoute: typeof SubsequentQueriesRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlockingAndStreamingRoute: BlockingAndStreamingRoute,
   ConsistentViewsRoute: ConsistentViewsRoute,
-  LiveQueriesSsrRoute: LiveQueriesSsrRoute,
+  LoadersRoute: LoadersRoute,
   QueryCachingPrefetchingRoute: QueryCachingPrefetchingRoute,
+  ReactQueryRoute: ReactQueryRoute,
+  RecommendedPatternsRoute: RecommendedPatternsRoute,
   SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
   SubsequentQueriesRoute: SubsequentQueriesRoute,
 }
@@ -216,10 +238,11 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/blocking-and-streaming",
         "/consistent-views",
-        "/live-queries-ssr",
+        "/loaders",
         "/query-caching-prefetching",
+        "/react-query",
+        "/recommended-patterns",
         "/simple-sibling-queries",
         "/subsequent-queries"
       ]
@@ -227,17 +250,20 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/blocking-and-streaming": {
-      "filePath": "blocking-and-streaming.tsx"
-    },
     "/consistent-views": {
       "filePath": "consistent-views.tsx"
     },
-    "/live-queries-ssr": {
-      "filePath": "live-queries-ssr.tsx"
+    "/loaders": {
+      "filePath": "loaders.tsx"
     },
     "/query-caching-prefetching": {
       "filePath": "query-caching-prefetching.tsx"
+    },
+    "/react-query": {
+      "filePath": "react-query.tsx"
+    },
+    "/recommended-patterns": {
+      "filePath": "recommended-patterns.tsx"
     },
     "/simple-sibling-queries": {
       "filePath": "simple-sibling-queries.tsx"
