@@ -1,6 +1,6 @@
-import { action, mutation } from './_generated/server'
+import { action, internalMutation, mutation } from './_generated/server'
 import { query } from './_generated/server'
-import { api } from './_generated/api.js'
+import { api, internal } from './_generated/api.js'
 import { v } from 'convex/values'
 
 export const list = query(async (ctx, { cacheBust }) => {
@@ -60,10 +60,10 @@ const text = [
   "Could you let the customer know we've fixed their issue?",
 ]
 
-export const sendGeneratedMessage = mutation(async (ctx) => {
+export const sendGeneratedMessage = internalMutation(async (ctx) => {
   const body = madlib`${greetings} ${names}${punc} ${text}`
   const user = await ctx.db.insert('users', {
-    name: 'user' + Math.floor(Math.random() * 1000),
+    name: 'User ' + Math.floor(Math.random() * 1000),
   })
   await ctx.db.insert('messages', { body, user: user })
 })
@@ -74,7 +74,7 @@ export const sendGeneratedMessages = action({
   handler: async (ctx, { num }: { num: number }) => {
     await ctx.runMutation(api.messages.clear)
     for (let i = 0; i < num; i++) {
-      await ctx.runMutation(api.messages.sendGeneratedMessage)
+      await ctx.runMutation(internal.messages.sendGeneratedMessage)
     }
   },
 })
@@ -110,8 +110,41 @@ export const sendMessage = mutation(
 )
 
 export const simulateTraffic = mutation(async (ctx) => {
-  // enable traffic simulation
-  //ctx.scheduler.runAfter(0, functionReference)
+  const simulation = await ctx.db.query('simulating').unique()
+  const now = Date.now()
+  const duration = 5000
+  if (!simulation) {
+    await ctx.db.insert('simulating', {
+      finishingAt: now + duration,
+    })
+    await ctx.scheduler.runAfter(0, internal.messages.runSimulation)
+  } else {
+    await ctx.db.replace(simulation._id, {
+      finishingAt: Math.max(simulation.finishingAt, now + duration),
+    })
+  }
+})
+
+export const runSimulation = internalMutation(async (ctx) => {
+  const now = Date.now()
+  const simulation = await ctx.db.query('simulating').unique()
+  if (!simulation) {
+    return
+  }
+  if (simulation.finishingAt < now) {
+    await ctx.db.delete(simulation._id)
+    return
+  }
+  const body = madlib`${greetings} ${names}${punc} ${text}`
+  const user = await ctx.db.insert('users', {
+    name: 'User ' + Math.floor(Math.random() * 1000),
+  })
+  await ctx.db.insert('messages', { body, user: user })
+  await ctx.scheduler.runAfter(500, internal.messages.runSimulation)
+})
+
+export const isSimulatingTraffic = query(async (ctx) => {
+  return !!(await ctx.db.query('simulating').collect()).length
 })
 
 /*

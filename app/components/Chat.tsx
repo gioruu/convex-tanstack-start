@@ -77,7 +77,7 @@ export default function Component({ useSuspense }: { useSuspense: boolean }) {
         <CardHeader className="border-b">
           <h2 className="text-lg font-semibold">
             {useSuspense
-              ? "SSR'd component pops in finished"
+              ? "SSR'd data is available in the initial payload"
               : 'Client-only data initially renders skeletons'}
           </h2>
         </CardHeader>

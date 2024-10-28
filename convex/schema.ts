@@ -12,4 +12,7 @@ export default defineSchema({
   channel: defineTable({
     name: v.string(),
   }),
+  simulating: defineTable({
+    finishingAt: v.number(),
+  }),
 })

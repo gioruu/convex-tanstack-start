@@ -2,8 +2,10 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import CodeBlock from '~/components/CodeSample'
 import Chat from '~/components/Chat'
 import { Button } from '~/components/ui/button'
-import { useConvexMutation } from '@convex-dev/react-query'
+import { convexQuery, useConvexMutation } from '@convex-dev/react-query'
 import { api } from 'convex/_generated/api'
+import { useQuery } from '@tanstack/react-query'
+import { ReloadIcon } from '@radix-ui/react-icons'
 
 export const Route = createFileRoute('/react-query')({
   component: LiveQueriesSSR,
@@ -11,21 +13,33 @@ export const Route = createFileRoute('/react-query')({
 
 export default function LiveQueriesSSR() {
   const sendTraffic = useConvexMutation(api.messages.simulateTraffic)
+  const { data: simulationRunning } = useQuery(
+    convexQuery(api.messages.isSimulatingTraffic, {}),
+  )
   return (
     <div className="space-y-2">
       <p>
         <a href="https://github.com/get-convex/convex-react-query">
           @convex-dev/react-query
         </a>{' '}
-        makes Convex queries update live in React Query.
+        makes Convex queries update live in React Query. Instead of the standard
+        interval and activity-based polling, updates are pushed to the browser
+        over a WebSocket. Try it,
         <Button variant="link" onClick={() => sendTraffic()}>
-          Simulate chat traffic (TODO)
+          click here to simulate chat traffic
         </Button>
+        {simulationRunning ? (
+          <ReloadIcon className="h-4 w-4 animate-spin inline mr-2" />
+        ) : null}
         to see these queries update live.
       </p>
       <p>
-        The useQuery hook loads data only on the client. To include data in SSR
-        add a <Link to="/loaders">loader</Link> to the page or use the{' '}
+        This is how Convex queries normally work, but TanStack Start makes it
+        easier than ever to server-side render this data as well.
+      </p>
+      <p>
+        To SSR the data, either add a <Link to="/loaders">loader</Link> to the
+        page use the{' '}
         <Link to="/useSuspenseQuery">
           <code>useSuspenseQuery()</code>
         </Link>{' '}

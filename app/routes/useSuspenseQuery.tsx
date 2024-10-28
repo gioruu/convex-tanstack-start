@@ -35,6 +35,10 @@ export default function QueryCaching() {
         still preload a query! useSuspenseQuery() is like ensureQueryData. Demo:
         a profile page for a user! useSuspenseQuery for user data.
       </p>
+      <p className="text-lg">
+        Using useSuspenseQuery doesn't necessarily block the page; a suspense
+        boundary will cause that part of the page to be streamed in.
+      </p>
     </div>
   )
 }
