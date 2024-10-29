@@ -1,13 +1,12 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/consistent-views')({
-  component: ConsistentClientViews,
-})
-
+import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input'
+
+export const Route = createFileRoute('/consistent-views')({
+  component: ConsistentClientViews,
+})
 
 export default function ConsistentClientViews() {
   const [message, setMessage] = useState('')
@@ -34,18 +33,18 @@ export default function ConsistentClientViews() {
   }
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold">Consistent Client Views</h2>
-      <p className="text-lg">
+    <>
+      <h2>Consistent Client Views</h2>
+      <p>
         Server-side rendering is a special case: in order to build the HTML,
         Convex uses a single render. For client-side navigations, Convex always
         presents a consistent, at-the-same-logical-timestamp view of the
         database. Consistency is useful!
       </p>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4 not-prose mt-12">
         <Card className="col-span-1">
           <CardHeader>
-            <CardTitle>Channels</CardTitle>
+            <CardTitle className="font-bold">Channels</CardTitle>
           </CardHeader>
           <CardContent>
             <ul>
@@ -57,12 +56,12 @@ export default function ConsistentClientViews() {
         </Card>
         <Card className="col-span-2">
           <CardHeader>
-            <CardTitle>Chat</CardTitle>
+            <CardTitle className="font-bold">Chat</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               {messages.map((msg) => (
-                <div key={msg.id} className="p-2 bg-muted rounded-md">
+                <div key={msg.id} className="p-2 bg-slate-800 rounded-md">
                   <strong>{msg.user}:</strong> {msg.text}
                 </div>
               ))}
@@ -79,7 +78,7 @@ export default function ConsistentClientViews() {
         </Card>
         <Card className="col-span-1">
           <CardHeader>
-            <CardTitle>Users</CardTitle>
+            <CardTitle className="font-bold">Users</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <ul>
@@ -91,6 +90,6 @@ export default function ConsistentClientViews() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   )
 }

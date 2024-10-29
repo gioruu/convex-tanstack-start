@@ -1,5 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import CodeBlock from '~/components/CodeSample'
+import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/recommended-patterns')({
   component: Recommendations,
@@ -7,11 +6,9 @@ export const Route = createFileRoute('/recommended-patterns')({
 
 export default function Recommendations() {
   return (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold">Recommended Patterns</h2>
-      <p className="text-lg">
-        Centralize queries with Query Factories if you need to.
-      </p>
-    </div>
+    <>
+      <h2>Recommended Patterns</h2>
+      <p>Centralize queries with Query Factories if you need to.</p>
+    </>
   )
 }

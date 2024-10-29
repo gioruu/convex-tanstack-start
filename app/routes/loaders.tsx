@@ -1,14 +1,5 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import { Button } from '../components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../components/ui/card'
-import { Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/loaders')({
   component: BlockingAndStreaming,
@@ -17,11 +8,10 @@ export const Route = createFileRoute('/loaders')({
 export default function BlockingAndStreaming() {
   const [cacheBust, setCacheBust] = useState('' + Math.random())
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Column */}
-        <div className="space-y-8">
-          <h2 className="text-3xl font-bold">Loaders and Prefetching</h2>
+        <div>
+          <h2>Loaders and Prefetching</h2>
           <p>
             But the cooler bit of React Query integration is preloading a query
             in a loader! Loaders in Start are isomorphic: they run on the server
@@ -61,11 +51,10 @@ export default function BlockingAndStreaming() {
             </Link>
           </nav>
         </div>
-
-        <div className="bg-gray-100 rounded-lg p-4">
+        <div className="bg-slate-100 overflow-scroll rounded-lg p-4 max-h-[80vh] text-black text-sm">
           <Outlet />
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -17,9 +17,9 @@ export default function QueryCaching() {
   const [currentPage, setCurrentPage] = useState('page1')
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold">Query Caching and Prefetching</h2>
-      <p className="text-lg">
+    <>
+      <h2>Query Caching and Prefetching</h2>
+      <p>
         As a user navigages around a site or dynamically mounts and unmounts
         components, some data is no longer needed. For fetch requests the React
         Query option{' '}
@@ -29,22 +29,22 @@ export default function QueryCaching() {
         is the length of time to hold on to a stale result before dropping it
         out of cache.
       </p>
-      <p className="text-lg">
+      <p>
         For a convexQuery this means something else: how long to say subscribed
         to a query while it is not mounted. The default is to remain subscribed
         to a query for 60 seconds after the last component using tha query
         unmounts.
       </p>
-      <p className="text-lg">
+      <p>
         Try navigating between these channel pages. If you've visited one in the
         last 10 seconds it won't be loading when you return to it.
       </p>
-      <p className="text-lg">
+      <p>
         Open up the TanStack Query Devtools to watch these query subscriptions
         end.
       </p>
-      TODO I gotta figure out subroutes? subpages? for this.
-      <Card>
+      <p>TODO I gotta figure out subroutes? subpages? for this.</p>
+      <Card className="not-prose">
         <CardHeader>
           <CardTitle>Navigation Example</CardTitle>
           <CardDescription>
@@ -64,12 +64,12 @@ export default function QueryCaching() {
           </div>
         </CardContent>
       </Card>
-      <p className="text-lg">
+      <p>
         In a real application, each page would fetch its own data. TanStack
         Query would cache this data, making subsequent navigations instant. You
         could also implement prefetching to load data for other pages in
         advance.
       </p>
-    </div>
+    </>
   )
 }

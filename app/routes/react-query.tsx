@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import CodeBlock from '~/components/CodeSample'
+import CodeSample from '~/components/CodeSample'
 import Chat from '~/components/Chat'
 import { Button } from '~/components/ui/button'
 import { convexQuery, useConvexMutation } from '@convex-dev/react-query'
@@ -17,7 +17,8 @@ export default function LiveQueriesSSR() {
     convexQuery(api.messages.isSimulatingTraffic, {}),
   )
   return (
-    <div className="space-y-2">
+    <>
+      <h2>Live Queries and SSR</h2>
       <p>
         <a href="https://github.com/get-convex/convex-react-query">
           @convex-dev/react-query
@@ -33,6 +34,9 @@ export default function LiveQueriesSSR() {
         ) : null}
         to see these queries update live.
       </p>
+      <Button onClick={() => sendTraffic()}>
+        Simulate chat traffic (TODO)
+      </Button>
       <p>
         This is how Convex queries normally work, but TanStack Start makes it
         easier than ever to server-side render this data as well.
@@ -45,18 +49,18 @@ export default function LiveQueriesSSR() {
         </Link>{' '}
         hook.
       </p>
-      <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Chat useSuspense={true} />
-          <Chat useSuspense={false} />
-        </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <Chat useSuspense={true} />
+        <Chat useSuspense={false} />
       </div>
-      <CodeBlock
+
+      <CodeSample
         code={`const { data, loading } = useQuery(convexQuery(
   api.messages.listMessages,
   { channel: "chatty" }
 ))`}
       />
-    </div>
+    </>
   )
 }
