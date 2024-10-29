@@ -1,6 +1,6 @@
 # Using Convex with TanStack Start
 
-TanStack Start is a React framework that provides full-stack routing. There's a lot to love!
+TanStack Start is a React framework that provides full-stack routing.
 
 Convex is a typesafe database with live-updating queries that are never stale.
 
