@@ -20,6 +20,9 @@ import { Route as LoadersImport } from './routes/loaders'
 import { Route as GcTimeImport } from './routes/gcTime'
 import { Route as ConsistentViewsImport } from './routes/consistent-views'
 import { Route as IndexImport } from './routes/index'
+import { Route as LoadersPrefetchImport } from './routes/loaders/prefetch'
+import { Route as LoadersNoLoaderImport } from './routes/loaders/no-loader'
+import { Route as LoadersEnsureImport } from './routes/loaders/ensure'
 
 // Create/Update Routes
 
@@ -75,6 +78,24 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const LoadersPrefetchRoute = LoadersPrefetchImport.update({
+  id: '/prefetch',
+  path: '/prefetch',
+  getParentRoute: () => LoadersRoute,
+} as any)
+
+const LoadersNoLoaderRoute = LoadersNoLoaderImport.update({
+  id: '/no-loader',
+  path: '/no-loader',
+  getParentRoute: () => LoadersRoute,
+} as any)
+
+const LoadersEnsureRoute = LoadersEnsureImport.update({
+  id: '/ensure',
+  path: '/ensure',
+  getParentRoute: () => LoadersRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -144,33 +165,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UseSuspenseQueryImport
       parentRoute: typeof rootRoute
     }
+    '/loaders/ensure': {
+      id: '/loaders/ensure'
+      path: '/ensure'
+      fullPath: '/loaders/ensure'
+      preLoaderRoute: typeof LoadersEnsureImport
+      parentRoute: typeof LoadersImport
+    }
+    '/loaders/no-loader': {
+      id: '/loaders/no-loader'
+      path: '/no-loader'
+      fullPath: '/loaders/no-loader'
+      preLoaderRoute: typeof LoadersNoLoaderImport
+      parentRoute: typeof LoadersImport
+    }
+    '/loaders/prefetch': {
+      id: '/loaders/prefetch'
+      path: '/prefetch'
+      fullPath: '/loaders/prefetch'
+      preLoaderRoute: typeof LoadersPrefetchImport
+      parentRoute: typeof LoadersImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface LoadersRouteChildren {
+  LoadersEnsureRoute: typeof LoadersEnsureRoute
+  LoadersNoLoaderRoute: typeof LoadersNoLoaderRoute
+  LoadersPrefetchRoute: typeof LoadersPrefetchRoute
+}
+
+const LoadersRouteChildren: LoadersRouteChildren = {
+  LoadersEnsureRoute: LoadersEnsureRoute,
+  LoadersNoLoaderRoute: LoadersNoLoaderRoute,
+  LoadersPrefetchRoute: LoadersPrefetchRoute,
+}
+
+const LoadersRouteWithChildren =
+  LoadersRoute._addFileChildren(LoadersRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
   '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRoute
+  '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
+  '/loaders/ensure': typeof LoadersEnsureRoute
+  '/loaders/no-loader': typeof LoadersNoLoaderRoute
+  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
   '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRoute
+  '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
+  '/loaders/ensure': typeof LoadersEnsureRoute
+  '/loaders/no-loader': typeof LoadersNoLoaderRoute
+  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRoutesById {
@@ -178,12 +241,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
   '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRoute
+  '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
+  '/loaders/ensure': typeof LoadersEnsureRoute
+  '/loaders/no-loader': typeof LoadersNoLoaderRoute
+  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRouteTypes {
@@ -198,6 +264,9 @@ export interface FileRouteTypes {
     | '/simple-sibling-queries'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
+    | '/loaders/ensure'
+    | '/loaders/no-loader'
+    | '/loaders/prefetch'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -209,6 +278,9 @@ export interface FileRouteTypes {
     | '/simple-sibling-queries'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
+    | '/loaders/ensure'
+    | '/loaders/no-loader'
+    | '/loaders/prefetch'
   id:
     | '__root__'
     | '/'
@@ -220,6 +292,9 @@ export interface FileRouteTypes {
     | '/simple-sibling-queries'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
+    | '/loaders/ensure'
+    | '/loaders/no-loader'
+    | '/loaders/prefetch'
   fileRoutesById: FileRoutesById
 }
 
@@ -227,7 +302,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsistentViewsRoute: typeof ConsistentViewsRoute
   GcTimeRoute: typeof GcTimeRoute
-  LoadersRoute: typeof LoadersRoute
+  LoadersRoute: typeof LoadersRouteWithChildren
   ReactQueryRoute: typeof ReactQueryRoute
   RecommendedPatternsRoute: typeof RecommendedPatternsRoute
   SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
@@ -239,7 +314,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsistentViewsRoute: ConsistentViewsRoute,
   GcTimeRoute: GcTimeRoute,
-  LoadersRoute: LoadersRoute,
+  LoadersRoute: LoadersRouteWithChildren,
   ReactQueryRoute: ReactQueryRoute,
   RecommendedPatternsRoute: RecommendedPatternsRoute,
   SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
@@ -280,7 +355,12 @@ export const routeTree = rootRoute
       "filePath": "gcTime.tsx"
     },
     "/loaders": {
-      "filePath": "loaders.tsx"
+      "filePath": "loaders.tsx",
+      "children": [
+        "/loaders/ensure",
+        "/loaders/no-loader",
+        "/loaders/prefetch"
+      ]
     },
     "/react-query": {
       "filePath": "react-query.tsx"
@@ -296,6 +376,18 @@ export const routeTree = rootRoute
     },
     "/useSuspenseQuery": {
       "filePath": "useSuspenseQuery.tsx"
+    },
+    "/loaders/ensure": {
+      "filePath": "loaders/ensure.tsx",
+      "parent": "/loaders"
+    },
+    "/loaders/no-loader": {
+      "filePath": "loaders/no-loader.tsx",
+      "parent": "/loaders"
+    },
+    "/loaders/prefetch": {
+      "filePath": "loaders/prefetch.tsx",
+      "parent": "/loaders"
     }
   }
 }
