@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as UseSuspenseQueryImport } from './routes/useSuspenseQuery'
 import { Route as SubsequentQueriesImport } from './routes/subsequent-queries'
+import { Route as SsrImport } from './routes/ssr'
 import { Route as SimpleSiblingQueriesImport } from './routes/simple-sibling-queries'
 import { Route as RecommendedPatternsImport } from './routes/recommended-patterns'
 import { Route as ReactQueryImport } from './routes/react-query'
@@ -35,6 +36,12 @@ const UseSuspenseQueryRoute = UseSuspenseQueryImport.update({
 const SubsequentQueriesRoute = SubsequentQueriesImport.update({
   id: '/subsequent-queries',
   path: '/subsequent-queries',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SsrRoute = SsrImport.update({
+  id: '/ssr',
+  path: '/ssr',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -151,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SimpleSiblingQueriesImport
       parentRoute: typeof rootRoute
     }
+    '/ssr': {
+      id: '/ssr'
+      path: '/ssr'
+      fullPath: '/ssr'
+      preLoaderRoute: typeof SsrImport
+      parentRoute: typeof rootRoute
+    }
     '/subsequent-queries': {
       id: '/subsequent-queries'
       path: '/subsequent-queries'
@@ -214,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
+  '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
@@ -229,6 +244,7 @@ export interface FileRoutesByTo {
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
+  '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
@@ -245,6 +261,7 @@ export interface FileRoutesById {
   '/react-query': typeof ReactQueryRoute
   '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
+  '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
   '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
@@ -262,6 +279,7 @@ export interface FileRouteTypes {
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
+    | '/ssr'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
     | '/loaders/ensure'
@@ -276,6 +294,7 @@ export interface FileRouteTypes {
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
+    | '/ssr'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
     | '/loaders/ensure'
@@ -290,6 +309,7 @@ export interface FileRouteTypes {
     | '/react-query'
     | '/recommended-patterns'
     | '/simple-sibling-queries'
+    | '/ssr'
     | '/subsequent-queries'
     | '/useSuspenseQuery'
     | '/loaders/ensure'
@@ -306,6 +326,7 @@ export interface RootRouteChildren {
   ReactQueryRoute: typeof ReactQueryRoute
   RecommendedPatternsRoute: typeof RecommendedPatternsRoute
   SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
+  SsrRoute: typeof SsrRoute
   SubsequentQueriesRoute: typeof SubsequentQueriesRoute
   UseSuspenseQueryRoute: typeof UseSuspenseQueryRoute
 }
@@ -318,6 +339,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReactQueryRoute: ReactQueryRoute,
   RecommendedPatternsRoute: RecommendedPatternsRoute,
   SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
+  SsrRoute: SsrRoute,
   SubsequentQueriesRoute: SubsequentQueriesRoute,
   UseSuspenseQueryRoute: UseSuspenseQueryRoute,
 }
@@ -341,6 +363,7 @@ export const routeTree = rootRoute
         "/react-query",
         "/recommended-patterns",
         "/simple-sibling-queries",
+        "/ssr",
         "/subsequent-queries",
         "/useSuspenseQuery"
       ]
@@ -370,6 +393,9 @@ export const routeTree = rootRoute
     },
     "/simple-sibling-queries": {
       "filePath": "simple-sibling-queries.tsx"
+    },
+    "/ssr": {
+      "filePath": "ssr.tsx"
     },
     "/subsequent-queries": {
       "filePath": "subsequent-queries.tsx"

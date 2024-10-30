@@ -14,6 +14,13 @@ export default function QueryCaching() {
         <code>useSuspenseQuery</code>
       </h2>
       <p>
+        There's some conflict between component locality (component requesting
+        the data they need) and loading data as soon as possible.
+      </p>
+      <p>
+        Here's a <a href="https://youtu.be/lcLbYictX3k?t=1573">Theo clip</a>.
+      </p>
+      <p>
         Sometimes it's hard to hoist a query into a page. Sometimes component
         locality is very useful! To block during SSR, use{' '}
         <code>useSuspenseQuery()</code>. "Isomorphic data fetching with a single

@@ -77,7 +77,12 @@ export default function RootLayout({
             <ul className="flex gap-4 xl:flex-row flex-col xl:gap-1">
               <li>
                 <Link to="/react-query" {...linkProps}>
-                  Live Queries and SSR
+                  React Query hooks
+                </Link>
+              </li>
+              <li>
+                <Link to="/ssr" {...linkProps}>
+                  SSR and live updates
                 </Link>
               </li>
               <li>
@@ -91,17 +96,12 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link to="/useSuspenseQuery" {...linkProps}>
-                  useSuspenseQuery
-                </Link>
-              </li>
-              <li>
                 <Link to="/consistent-views" {...linkProps}>
                   Consistent Views
                 </Link>
               </li>
               <li>
-                <Link to="/recommended-patterns" {...linkProps}>
+                <Link to="/useSuspenseQuery" {...linkProps}>
                   Recommendations
                 </Link>
               </li>
@@ -109,7 +109,7 @@ export default function RootLayout({
           </nav>
         </div>
       </header>
-      <main className="container mx-auto py-16 prose-xl prose-slate prose-headings:font-bold prose-a:underline prose-a:underline-offset-3 prose-p:leading-snug transition-colors hover:prose-a:text-white">
+      <main className="container mx-auto py-8 prose-xl prose-slate prose-headings:font-bold prose-a:underline prose-a:underline-offset-3 prose-p:leading-snug transition-colors hover:prose-a:text-white">
         {children}
       </main>
     </div>

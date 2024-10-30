@@ -12,6 +12,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { convexQuery, useConvexMutation } from '@convex-dev/react-query'
 import { api } from 'convex/_generated/api'
 import { Skeleton } from './ui/skeleton'
+import CodeSample from '~/components/CodeSample'
 
 const Message = ({
   user,
@@ -51,7 +52,13 @@ const MessageSkeleton = () => (
   </div>
 )
 
-export default function Component({ useSuspense }: { useSuspense: boolean }) {
+export default function Component({
+  useSuspense,
+  showCode,
+}: {
+  useSuspense: boolean
+  showCode: boolean
+}) {
   const useWhicheverQuery: typeof useQuery = useSuspense
     ? (useSuspenseQuery as typeof useQuery)
     : useQuery
@@ -71,17 +78,43 @@ export default function Component({ useSuspense }: { useSuspense: boolean }) {
     }
   }
 
+  const code = showCode ? (
+    useSuspense ? (
+      <CodeSample
+        code={`const { data } = useSuspenseQuery(convexQuery(
+  api.messages.listMessages,
+  { channel: "chatty" }
+))`}
+      />
+    ) : (
+      <CodeSample
+        code={`const { data, isPending } = useQuery(convexQuery(
+  api.messages.listMessages,
+  { channel: "chatty" }
+))`}
+      />
+    )
+  ) : null
+
+  const input = (
+    <div className="flex w-full items-center space-x-2 pt-6">
+      <Input
+        type="text"
+        placeholder="Type a message..."
+        value={newMessage}
+        onChange={(e) => setNewMessage(e.target.value)}
+        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+      />
+      <Button size="icon" onClick={handleSendMessage}>
+        <PaperPlaneIcon className="h-4 w-4" />
+      </Button>
+    </div>
+  )
+
   return (
     <>
       <Card className="w-full">
-        <CardHeader className="border-b">
-          <h2 className="text-lg font-semibold">
-            {useSuspense
-              ? "SSR'd data is available in the initial payload"
-              : 'Client-only data initially renders skeletons'}
-          </h2>
-        </CardHeader>
-        <CardContent className="h-[250px] overflow-y-auto">
+        <CardHeader className="h-[250px] overflow-y-auto">
           {isPending || error ? (
             <>
               <MessageSkeleton />
@@ -98,21 +131,9 @@ export default function Component({ useSuspense }: { useSuspense: boolean }) {
               />
             ))
           )}
-        </CardContent>
-        <CardFooter className="border-t">
-          <div className="flex w-full items-center space-x-2 pt-6">
-            <Input
-              type="text"
-              placeholder="Type a message..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            />
-            <Button size="icon" onClick={handleSendMessage}>
-              <PaperPlaneIcon className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardFooter>
+        </CardHeader>
+        {code ? <CardContent>{input}</CardContent> : null}
+        <CardFooter>{code ? code : input}</CardFooter>
       </Card>
     </>
   )

@@ -17,22 +17,28 @@ export default function LandingPage() {
     {
       name: 'Convex',
       description:
-        'A typesafe database with live-updating queries with automatic invalidation.',
+        'A typesafe database that live-updates and automatically invalidates queries.',
       href: 'https://www.convex.dev/',
     },
     {
       name: 'TanStack Query',
       description:
-        'AKA React Query. Asynchronous state management for server-side state like queries and mutations.',
+        'Asynchronous state management for server-side state like queries and mutations. AKA React Query.',
       href: 'https://tanstack.com/query',
     },
   ]
 
   const features = [
     {
-      title: 'Live-updating Queries',
+      title: 'React Query hooks',
       description: 'Supercharging React Query with live updates from Convex.',
       link: '/react-query',
+    },
+    {
+      title: 'Render on the server, update in the browser',
+      description:
+        'Hydrating the Query Client in the browser makes SSR take no extra steps.',
+      link: '/ssr',
     },
     {
       title: 'Loaders and prefetching',
@@ -42,13 +48,7 @@ export default function LandingPage() {
     {
       title: 'Staying subscribed to queries',
       description: "Data not currently rendered doesn't need to be stale.",
-      link: '/use-suspense-query',
-    },
-    {
-      title: 'useSuspenseQuery',
-      description:
-        'Block on the server and client. Isomorphic data fetching with a single hook.',
-      link: '/use-suspense-query',
+      link: '/gcTime',
     },
     {
       title: 'Consistent Client Views',
@@ -57,24 +57,88 @@ export default function LandingPage() {
       link: '/consistent-views',
     },
     {
-      title: 'Recommended Patterns',
+      title: 'Data loading philosophy',
       description:
-        'Best practices for using React Query, Convex, and TanStack Start together.',
-      link: '/recommended-patterns',
+        'Block on the server and client. Isomorphic data fetching with a single hook.',
+      link: '/use-suspense-query',
     },
   ]
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose">
-        <h1 className="text-6xl font-bold text-balance text-white">
-          Render on the server, update in the browser.
-        </h1>
-        <p className="text-xl font-light text-slate-300">
-          Convex queries update without polling so your data is never out of
-          sync.
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2  ">
+        <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose">
+          <h1 className="text-6xl font-bold text-balance text-white">
+            TanStack Start, TanStack Query, and Convex
+          </h1>
+          <p className="text-xl font-light text-slate-300">
+            TanStack Start is coming. Instead of the Convex React hooks you're
+            used to, we recommend using Convex to supercharge TanStack Query's
+            excellent Start integration.
+          </p>
+
+          <p className="text-xl font-light text-slate-300">
+            This site is written with Start{' '}
+            <a href="https://github.com/get-convex/tanstack-start-guide/">
+              (see source)
+            </a>{' '}
+            with this setup. It goes over just the tip of the Start iceburg so
+            also check out the{' '}
+            <a href="https://tanstack.com/router/latest/docs/framework/react/start/overview">
+              official guide
+            </a>
+            .
+          </p>
+        </div>
+        <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose justify-center">
+          <p className="text-xl font-light text-slate-300">
+            Try out TanStack Start with Convex
+          </p>
+          <h2 className="text-2xl font-bold text-balance text-white">
+            <a href="https://docs.convex.dev/quickstart/tanstack-start">
+              Convex TanStack Quickstart
+            </a>
+          </h2>
+          <p className="text-xl font-light text-slate-300">or run</p>
+          <p className="text-xl font-light text-slate-300">
+            <code>npm create convex@latest -- -t tanstack-start</code>
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+        {features.map((feature, index) => (
+          <Link key={index} to={feature.link}>
+            <Card className="hover:bg-slate-800 transition-colors">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">
+                  {feature.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-400 leading-tight text-base">
+                {feature.description}
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+      <div>
+        <p>
+          This is a TanStack Start site demonstrating patterns for using Convex
+          with TanStack Start. Check out the{' '}
+          <a href="https://github.com/get-convex/tanstack-start-guide/">
+            source on GitHub
+          </a>{' '}
+          or{' '}
+          <a href="https://docs.convex.dev/quickstart/tanstack">
+            follow the Quickstart
+          </a>{' '}
+          to create a new project.
         </p>
       </div>
+      <p>
+        The recommended way to use Convex with TanStack Start is via TanStack
+        Query. Read more about these projects
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 not-prose">
         {tools.map((tool) => (
           <a key={tool.href} href={tool.href} target="_blank" rel="noreferrer">
@@ -92,37 +156,6 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </a>
-        ))}
-      </div>
-      <div>
-        <p>
-          This is a TanStack Start site demonstrating patterns for using Convex
-          with TanStack Start. Check out the{' '}
-          <a href="https://github.com/get-convex/tanstack-start-guide/">
-            source on GitHub
-          </a>{' '}
-          or{' '}
-          <a href="https://docs.convex.dev/quickstart/tanstack">
-            follow the Quickstart
-          </a>{' '}
-          to get going.
-        </p>
-        <p>Details about how things work once they're hooked up.</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
-        {features.map((feature, index) => (
-          <Link key={index} to={feature.link}>
-            <Card className="hover:bg-slate-800 transition-colors">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-slate-400 leading-tight text-base">
-                {feature.description}
-              </CardContent>
-            </Card>
-          </Link>
         ))}
       </div>
     </div>

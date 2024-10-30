@@ -1,5 +1,6 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import CodeSample from '../components/CodeSample'
 
 export const Route = createFileRoute('/loaders')({
   component: BlockingAndStreaming,
@@ -13,20 +14,21 @@ export default function BlockingAndStreaming() {
         <div>
           <h2>Loaders and Prefetching</h2>
           <p>
-            But the cooler bit of React Query integration is preloading a query
-            in a loader! Loaders in Start are isomorphic: they run on the server
-            during SSR and the run on the client the rest of the time.
+            Every TanStack Start route can have an isomorphic `loader` function
+            that runs on initial page render and subsequent client-side renders.
+            You can run whatever you want in here, but TanStack Router has just
+            the right pieces.
           </p>
+          <CodeSample code={`loader`} />
           <p>
-            TODO six different pages. All are cache-busted. How useQuery wiht no
-            loader, useQuer with waiting, and awaiting ensureQueryData
+            When debugging data being loaded it's important to be aware of
+            prefetching behavior.
           </p>
           <p>
             This page shows all the messages in a channel. You can change
             channels! You can see ensureQuery and preloadQuery working
             differently.
           </p>
-          <p>Watch Tanner's video for more!</p>
           <nav className="flex flex-col space-y-4">
             <Link
               to="/loaders/ensure"
@@ -55,6 +57,13 @@ export default function BlockingAndStreaming() {
           <Outlet />
         </div>
       </div>
+      <h2>Resources / Learning More</h2>
+      <p>Watch Tanner's video for more!</p>
+      <p>
+        <a href="https://tanstack.com/router/latest/docs/framework/react/guide/preloading">
+          TanStack Router Preloading Guide
+        </a>
+      </p>
     </>
   )
 }
