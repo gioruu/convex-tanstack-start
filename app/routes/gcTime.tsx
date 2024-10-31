@@ -18,7 +18,7 @@ export default function QueryCaching() {
 
   return (
     <>
-      <h2>Query Caching and Prefetching</h2>
+      <h2>Staying subscribed to queries after unmount</h2>
       <p>
         As a user navigages around a site or dynamically mounts and unmounts
         components, some data is no longer needed. For fetch requests the React

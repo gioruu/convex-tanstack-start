@@ -15,10 +15,10 @@ import { Route as UseSuspenseQueryImport } from './routes/useSuspenseQuery'
 import { Route as SubsequentQueriesImport } from './routes/subsequent-queries'
 import { Route as SsrImport } from './routes/ssr'
 import { Route as SimpleSiblingQueriesImport } from './routes/simple-sibling-queries'
-import { Route as RecommendedPatternsImport } from './routes/recommended-patterns'
 import { Route as ReactQueryImport } from './routes/react-query'
 import { Route as LoadersImport } from './routes/loaders'
 import { Route as GcTimeImport } from './routes/gcTime'
+import { Route as FaqImport } from './routes/faq'
 import { Route as ConsistentViewsImport } from './routes/consistent-views'
 import { Route as IndexImport } from './routes/index'
 import { Route as LoadersPrefetchImport } from './routes/loaders/prefetch'
@@ -51,12 +51,6 @@ const SimpleSiblingQueriesRoute = SimpleSiblingQueriesImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const RecommendedPatternsRoute = RecommendedPatternsImport.update({
-  id: '/recommended-patterns',
-  path: '/recommended-patterns',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const ReactQueryRoute = ReactQueryImport.update({
   id: '/react-query',
   path: '/react-query',
@@ -72,6 +66,12 @@ const LoadersRoute = LoadersImport.update({
 const GcTimeRoute = GcTimeImport.update({
   id: '/gcTime',
   path: '/gcTime',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FaqRoute = FaqImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -123,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsistentViewsImport
       parentRoute: typeof rootRoute
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqImport
+      parentRoute: typeof rootRoute
+    }
     '/gcTime': {
       id: '/gcTime'
       path: '/gcTime'
@@ -142,13 +149,6 @@ declare module '@tanstack/react-router' {
       path: '/react-query'
       fullPath: '/react-query'
       preLoaderRoute: typeof ReactQueryImport
-      parentRoute: typeof rootRoute
-    }
-    '/recommended-patterns': {
-      id: '/recommended-patterns'
-      path: '/recommended-patterns'
-      fullPath: '/recommended-patterns'
-      preLoaderRoute: typeof RecommendedPatternsImport
       parentRoute: typeof rootRoute
     }
     '/simple-sibling-queries': {
@@ -223,10 +223,10 @@ const LoadersRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
@@ -239,10 +239,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
@@ -256,10 +256,10 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/consistent-views': typeof ConsistentViewsRoute
+  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/recommended-patterns': typeof RecommendedPatternsRoute
   '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
   '/subsequent-queries': typeof SubsequentQueriesRoute
@@ -274,10 +274,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/consistent-views'
+    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/ssr'
     | '/subsequent-queries'
@@ -289,10 +289,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/consistent-views'
+    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/ssr'
     | '/subsequent-queries'
@@ -304,10 +304,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/consistent-views'
+    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/recommended-patterns'
     | '/simple-sibling-queries'
     | '/ssr'
     | '/subsequent-queries'
@@ -321,10 +321,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsistentViewsRoute: typeof ConsistentViewsRoute
+  FaqRoute: typeof FaqRoute
   GcTimeRoute: typeof GcTimeRoute
   LoadersRoute: typeof LoadersRouteWithChildren
   ReactQueryRoute: typeof ReactQueryRoute
-  RecommendedPatternsRoute: typeof RecommendedPatternsRoute
   SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
   SsrRoute: typeof SsrRoute
   SubsequentQueriesRoute: typeof SubsequentQueriesRoute
@@ -334,10 +334,10 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsistentViewsRoute: ConsistentViewsRoute,
+  FaqRoute: FaqRoute,
   GcTimeRoute: GcTimeRoute,
   LoadersRoute: LoadersRouteWithChildren,
   ReactQueryRoute: ReactQueryRoute,
-  RecommendedPatternsRoute: RecommendedPatternsRoute,
   SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
   SsrRoute: SsrRoute,
   SubsequentQueriesRoute: SubsequentQueriesRoute,
@@ -358,10 +358,10 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/consistent-views",
+        "/faq",
         "/gcTime",
         "/loaders",
         "/react-query",
-        "/recommended-patterns",
         "/simple-sibling-queries",
         "/ssr",
         "/subsequent-queries",
@@ -373,6 +373,9 @@ export const routeTree = rootRoute
     },
     "/consistent-views": {
       "filePath": "consistent-views.tsx"
+    },
+    "/faq": {
+      "filePath": "faq.tsx"
     },
     "/gcTime": {
       "filePath": "gcTime.tsx"
@@ -387,9 +390,6 @@ export const routeTree = rootRoute
     },
     "/react-query": {
       "filePath": "react-query.tsx"
-    },
-    "/recommended-patterns": {
-      "filePath": "recommended-patterns.tsx"
     },
     "/simple-sibling-queries": {
       "filePath": "simple-sibling-queries.tsx"

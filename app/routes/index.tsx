@@ -66,7 +66,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="gap-6 grid grid-cols-1 md:grid-cols-2  ">
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
         <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose">
           <h1 className="text-6xl font-bold text-balance text-white">
             TanStack Start, TanStack Query, and Convex
@@ -82,7 +82,7 @@ export default function LandingPage() {
             <a href="https://github.com/get-convex/tanstack-start-guide/">
               (see source)
             </a>{' '}
-            with this setup. It goes over just the tip of the Start iceburg so
+            using this setup. It goes over just the tip of the Start iceburg so
             also check out the{' '}
             <a href="https://tanstack.com/router/latest/docs/framework/react/start/overview">
               official guide
@@ -121,24 +121,7 @@ export default function LandingPage() {
           </Link>
         ))}
       </div>
-      <div>
-        <p>
-          This is a TanStack Start site demonstrating patterns for using Convex
-          with TanStack Start. Check out the{' '}
-          <a href="https://github.com/get-convex/tanstack-start-guide/">
-            source on GitHub
-          </a>{' '}
-          or{' '}
-          <a href="https://docs.convex.dev/quickstart/tanstack">
-            follow the Quickstart
-          </a>{' '}
-          to create a new project.
-        </p>
-      </div>
-      <p>
-        The recommended way to use Convex with TanStack Start is via TanStack
-        Query. Read more about these projects
-      </p>
+      <p>Read more about these projects</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 not-prose">
         {tools.map((tool) => (
           <a key={tool.href} href={tool.href} target="_blank" rel="noreferrer">

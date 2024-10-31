@@ -82,7 +82,7 @@ export default function RootLayout({
               </li>
               <li>
                 <Link to="/ssr" {...linkProps}>
-                  SSR and live updates
+                  SSR and Live Queries
                 </Link>
               </li>
               <li>
@@ -101,8 +101,8 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link to="/useSuspenseQuery" {...linkProps}>
-                  Recommendations
+                <Link to="/faq" {...linkProps}>
+                  FAQ
                 </Link>
               </li>
             </ul>

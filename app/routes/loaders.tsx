@@ -1,6 +1,7 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import CodeSample from '../components/CodeSample'
+import { Button } from '~/components/ui/button'
 
 export const Route = createFileRoute('/loaders')({
   component: BlockingAndStreaming,
@@ -14,46 +15,85 @@ export default function BlockingAndStreaming() {
         <div>
           <h2>Loaders and Prefetching</h2>
           <p>
-            Every TanStack Start route can have an isomorphic `loader` function
-            that runs on initial page render and subsequent client-side renders.
-            You can run whatever you want in here, but TanStack Router has just
-            the right pieces.
-          </p>
-          <CodeSample code={`loader`} />
-          <p>
-            When debugging data being loaded it's important to be aware of
-            prefetching behavior.
+            TanStack Start routes can have isomorphic loader functions that run
+            on the server for the initial pageload and on the client for
+            subsequent client-side navigations.
           </p>
           <p>
-            This page shows all the messages in a channel. You can change
-            channels! You can see ensureQuery and preloadQuery working
-            differently.
+            If <code>useSuspenseQuery</code> provides isomorphic data fetching,
+            what are loaders for? Three things:
+            <ol>
+              <li>
+                1. loaders are used to <a href="">prefetch</a>data for a page.
+                By default this happens on mousing into a link.
+              </li>
+              <li>2. loaders can prevent data waterfalls by fetching data</li>
+              <li>
+                3. blocking in loaders on data being loaded results in
+                `useSuspenseQuery`-like behavior, data during SSR and before
+                navigating, but configurate at the route level instead of the
+                component.
+              </li>
+            </ol>
+            Let's focus on prefetching here and blocking here.
           </p>
-          <nav className="flex flex-col space-y-4">
-            <Link
-              to="/loaders/ensure"
-              search={{ cacheBust: cacheBust + 'a' }}
-              onClick={() => setCacheBust('' + Math.random())}
-            >
-              ensure (plus prefetch on mouseover)
-            </Link>
-            <Link
-              to="/loaders/prefetch"
-              search={{ cacheBust: cacheBust + 'b' }}
-              onClick={() => setCacheBust('' + Math.random())}
-            >
-              prefetch on mouseover
-            </Link>
-            <Link
-              to="/loaders/no-loader"
-              search={{ cacheBust: cacheBust + 'c' }}
-              onClick={() => setCacheBust('' + Math.random())}
-            >
-              no loader
-            </Link>
-          </nav>
+          <p>
+            These three links lead to subpages that show chat messages from
+            different channels. Notice how client navigations between these
+            pages work differently.
+          </p>
+
+          <p>
+            Awaiting <code>ensureQueryData</code> will block rendering of the
+            page until that data is available.
+          </p>
+          <CodeSample
+            code={`export const Route = createFileRoute('/loaders')({
+  loader: async (opts) => {
+    await opts.context.queryClient.ensureQueryData(
+      convexQuery(api.messages.list, {}),
+    );
+  };
+  component: () => {
+    const { data } = useSuspenseQuery(
+      convexQuery(api.messages.list, {})
+    );
+  },
+})`}
+          />
         </div>
-        <div className="bg-slate-100 overflow-scroll rounded-lg p-4 max-h-[80vh] text-black text-sm">
+        <div>
+          <nav className="flex flex-col space-y-4">
+            <Button asChild>
+              <Link
+                to="/loaders/ensure"
+                search={{ cacheBust: cacheBust + 'a' }}
+                onClick={() => setCacheBust('' + Math.random())}
+              >
+                <code>await queryClient.ensureQueryData</code> blocks for data
+                and preloads on mouseenter
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link
+                to="/loaders/prefetch"
+                search={{ cacheBust: cacheBust + 'b' }}
+                onClick={() => setCacheBust('' + Math.random())}
+              >
+                <code>queryClient.preloadQuery()</code> loads on mouseenter but
+                doesn't block
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link
+                to="/loaders/no-loader"
+                search={{ cacheBust: cacheBust + 'c' }}
+                onClick={() => setCacheBust('' + Math.random())}
+              >
+                no loader, so mouseover does nothing
+              </Link>
+            </Button>
+          </nav>
           <Outlet />
         </div>
       </div>

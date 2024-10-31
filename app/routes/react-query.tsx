@@ -24,33 +24,70 @@ export default function ReactQuery() {
   return (
     <>
       <h2>
-        <code>
-          {'{'} data, isPending, error {'} = useQuery(convexQuery(...))'}
-        </code>
+        React Query hooks: <code>useQuery()</code> returns an object now
       </h2>
       <div className="gap-6 grid grid-cols-1 md:grid-cols-2  ">
         <div>
           <p>
-            In TanStack Start apps you can use React Query (TanStack Query for
-            React) hooks instead of the standard Convex hooks through{' '}
+            TanStack Start apps should use React Query (TanStack Query for
+            React) hooks instead of the tranditional Convex hooks to take
+            advantage of React Query's excellent Start integration. Convex
+            queries are exposed through{' '}
             <a href="https://tkdodo.eu/blog/the-query-options-api">
               query options factories
             </a>{' '}
-            like <code>convexQuery()</code>.
+            like{' '}
+            <a href="https://docs.convex.dev/client/tanstack-query#queries">
+              <code>convexQuery()</code>
+            </a>
+            .
           </p>
           <p>
             Instead of React Query's standard interval and activity-based
-            polling and manual invalidation, query results received from a
-            WebSocket update the TanStack Query cache directly.
+            polling and manual invalidation, updates are streamed down WebSocket
+            to{' '}
+            <a href="https://docs.convex.dev/client/tanstack-query#differences-from-using-fetch-with-tanstack-query">
+              update the Query Cache directly
+            </a>{' '}
+            for live, always-up-to-date results.
           </p>
-
-          <Button onClick={() => sendTraffic()}>
-            Simulat{simulationRunning ? 'ing' : 'e'} chat traffic{' '}
-            {simulationRunning ? (
-              <ReloadIcon className="h-4 w-4 animate-spin inline" />
-            ) : null}
-          </Button>
+          <p>
+            Open this page in another tab or on your phone and send a message to
+            see these updates pushed live.{' '}
+            <Button variant="ghost" onClick={() => sendTraffic()}>
+              Simulat{simulationRunning ? 'ing' : 'e'} chat traffic{' '}
+              {simulationRunning ? (
+                <ReloadIcon className="h-4 w-4 animate-spin inline" />
+              ) : null}
+            </Button>
+          </p>
           <Chat useSuspense={true} showCode={false} />
+          <p>
+            Even if you're not familiar with React Query these hooks should feel
+            familiar. Instead of returning the data directly, this{' '}
+            <code>useQuery()</code> returns an object with a <code>.data</code>{' '}
+            property along with other metadata. The hook accepts a single
+            object, which you'll mostly populate with the return value of the{' '}
+            <code>convexQuery()</code>
+            hook. But it's generally used the same way as the Convex{' '}
+            <code>useQuery()</code> hook.
+          </p>
+          <p>
+            The same React Query hooks can be used for fetch endpoints and
+            Convex actions for standard interval or activity-based polling while
+            Convex queries benefit from the live update behavior.
+          </p>
+          <p>
+            What do you get from this change? It's not just often asked-for{' '}
+            <code>isLoading</code> and <code>error</code> properties or simple
+            interop with other server endpoints or introspection from the
+            TanStack Query devtools. And it's not just that React Router's
+            integration with the TanStack Start provides{' '}
+            <Link to="/ssr">
+              server-side rendering and live updating queries
+            </Link>{' '}
+            in a single hook, but that's is what we'll look at next.
+          </p>
         </div>
         <div>
           <p>
@@ -63,46 +100,23 @@ const messagesQuery = convexQuery(
   api.messages.listMessages,
   { channel: "chatty" }
 )
-const { data, isPending } = useQuery(messagesQuery);`}
-            />
-          </p>
-          <p>
-            <CodeSample code={`queryClient.prefetchQuery(messagesQuery);`} />
-          </p>
-          <p>
-            <CodeSample
-              code={`const { data } = useQuery(convexQuery(
-  api.messages.listMessages,
-  { channel: "chatty" }
-))`}
+
+// inside a React component
+const { data, isPending } = useQuery(messagesQuery);
+
+// in an event handler, useEfect, or loader
+queryClient.prefetchQuery(messagesQuery);
+
+// adding more query options to convexQuery()
+const { data } = useQuery({
+  ...convexQuery(api.mesages.listMessages, {}),
+  initialData: [],
+  gcTime: 10000,
+});`}
             />
           </p>
         </div>
       </div>
-
-      <p>Even if you're not failiar with React Query, it will feel familiar.</p>
-      <p>
-        It's hooks in the <code>useQuery()</code> family return an object
-        instead of the data directly.
-      </p>
-      <p>
-        <code>convexQuery()</code> return a "query options" object which you can
-        spread your own options into. Relevant settings when using convexQuery:
-        `gcTime`,{' '}
-      </p>
-      <p>
-        There are lots of other things React Query handles for fetch() endpoints
-        that won't be consistent like Convex queries but can be kept up to date
-        with interval or activity-based polling.
-      </p>
-
-      <p>
-        Standard Convex hooks are still available to be imported from{' '}
-        <code>"convex/react"</code> so be careful: there are two `useQuery()`
-        hooks now. This micould change in future version of the integration and
-        the Convex hooks are also available at aliases like{' '}
-        <code>useConvexPaginatedQuery()</code>.
-      </p>
 
       <h2>Resources / Learn More</h2>
       <p>
