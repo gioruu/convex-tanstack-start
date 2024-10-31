@@ -65,12 +65,14 @@ export default function LandingPage() {
   ]
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
-        <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose">
-          <h1 className="text-6xl font-bold text-balance text-white">
-            TanStack Start, TanStack Query, and Convex
-          </h1>
+    <div className="flex flex-col gap-12">
+      <div className="gap-6 grid grid-cols-1 lg:grid-cols-2">
+        <h1 className="text-6xl font-bold text-balance text-white m-0">
+          TanStack <span className="text-cyan-500">Start</span>, TanStack
+          <span className="text-red-500"> Query</span>, and{' '}
+          <span className="text-[#F3B01C]">Convex</span>
+        </h1>
+        <div className="flex flex-col gap-4 not-prose lg:row-start-2">
           <p className="text-xl font-light text-slate-300">
             TanStack Start is coming. Instead of the Convex React hooks you're
             used to, we recommend using Convex to supercharge TanStack Query's
@@ -78,30 +80,32 @@ export default function LandingPage() {
           </p>
 
           <p className="text-xl font-light text-slate-300">
-            This site is written with Start{' '}
+            This site is written with Start (see{' '}
             <a href="https://github.com/get-convex/tanstack-start-guide/">
-              (see source)
-            </a>{' '}
-            using this setup. It goes over just the tip of the Start iceburg so
-            also check out the{' '}
+              source
+            </a>
+            ) using this setup. It goes over just the tip of the Start iceburg
+            so also check out the{' '}
             <a href="https://tanstack.com/router/latest/docs/framework/react/start/overview">
               official guide
             </a>
             .
           </p>
         </div>
-        <div className="flex flex-col max-w-2xl gap-4 my-8 not-prose justify-center">
-          <p className="text-xl font-light text-slate-300">
-            Try out TanStack Start with Convex
+        <div className="flex flex-col not-prose text-slate-300 lg:row-start-2">
+          <p className="text-sm font-medium">
+            Try out TanStack Start with Convex:
           </p>
-          <h2 className="text-2xl font-bold text-balance text-white">
+          <p className="text-2xl font-bold mb-8">
             <a href="https://docs.convex.dev/quickstart/tanstack-start">
               Convex TanStack Quickstart
             </a>
-          </h2>
-          <p className="text-xl font-light text-slate-300">or run</p>
-          <p className="text-xl font-light text-slate-300">
-            <code>npm create convex@latest -- -t tanstack-start</code>
+          </p>
+          <p className="text-sm font-bold mb-2">Or run:</p>
+          <p className="text-lg font-light">
+            <code className="bg-slate-700 block px-4 py-2 rounded-md border border-slate-600">
+              npm create convex@latest -- -t tanstack-start
+            </code>
           </p>
         </div>
       </div>
@@ -110,7 +114,7 @@ export default function LandingPage() {
           <Link key={index} to={feature.link}>
             <Card className="hover:bg-slate-800 transition-colors">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold">
+                <CardTitle className="text-xl font-bold">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
@@ -121,25 +125,32 @@ export default function LandingPage() {
           </Link>
         ))}
       </div>
-      <p>Read more about these projects</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 not-prose">
-        {tools.map((tool) => (
-          <a key={tool.href} href={tool.href} target="_blank" rel="noreferrer">
-            <Card className="hover:bg-slate-800 transition-colors not-prose">
-              <CardHeader className="relative">
-                <CardTitle className="text-3xl font-bold text-center">
-                  {tool.name}
-                </CardTitle>
-                <ExternalLinkIcon className="w-4 h-4 absolute top-1 right-2 text-slate-400" />
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-slate-400 leading-tight text-balance text-base">
-                  {tool.description}
-                </p>
-              </CardContent>
-            </Card>
-          </a>
-        ))}
+      <div>
+        <p className="font-bold">Read more about these projects:</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 not-prose">
+          {tools.map((tool) => (
+            <a
+              key={tool.href}
+              href={tool.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Card className="hover:bg-slate-800 transition-colors not-prose">
+                <CardHeader className="relative mb-1">
+                  <CardTitle className="text-3xl font-bold text-center">
+                    {tool.name}
+                  </CardTitle>
+                  <ExternalLinkIcon className="w-4 h-4 absolute top-1 right-2 text-slate-400" />
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center text-slate-400 leading-tight text-balance text-base">
+                    {tool.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   )

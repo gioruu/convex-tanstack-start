@@ -13,7 +13,7 @@ export default function BlockingAndStreaming() {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <h2>Loaders and Prefetching</h2>
+          <h2 className="mt-0">Loaders and Prefetching</h2>
           <p>
             TanStack Start routes can have isomorphic loader functions that run
             on the server for the initial pageload and on the client for
@@ -22,16 +22,16 @@ export default function BlockingAndStreaming() {
           <p>
             If <code>useSuspenseQuery</code> provides isomorphic data fetching,
             what are loaders for? Three things:
-            <ol>
+            <ol className="list-decimal list-inside [&>li]:marker:font-bold [&>li]:marker:text-slate-500">
               <li>
-                1. loaders are used to <a href="">prefetch</a>data for a page.
-                By default this happens on mousing into a link.
+                Loaders are used to <a href="">prefetch</a> data for a page. By
+                default this happens on mousing into a link.
               </li>
-              <li>2. loaders can prevent data waterfalls by fetching data</li>
+              <li>Loaders can prevent data waterfalls by fetching data</li>
               <li>
-                3. blocking in loaders on data being loaded results in
+                Blocking in loaders on data being loaded results in
                 `useSuspenseQuery`-like behavior, data during SSR and before
-                navigating, but configurate at the route level instead of the
+                navigating, but configured at the route level instead of the
                 component.
               </li>
             </ol>

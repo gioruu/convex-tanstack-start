@@ -53,10 +53,10 @@ export default function LiveQueriesSSR() {
         <Chat useSuspense={false} showCode={true} />
       </div>
 
+      <p>On the browser these queries resume their subscriptions:</p>
       <p>
-        On the browser these queries resume their subscriptions:
-        <Button variant="ghost" onClick={() => sendTraffic()}>
-          simulat{simulationRunning ? 'ing' : 'e'} chat traffic{' '}
+        <Button onClick={() => sendTraffic()}>
+          Simulat{simulationRunning ? 'ing' : 'e'} chat traffic{' '}
           {simulationRunning ? (
             <ReloadIcon className="h-4 w-4 animate-spin inline" />
           ) : null}

@@ -47,8 +47,8 @@ export default function QueryCaching() {
       <Card className="not-prose">
         <CardHeader>
           <CardTitle>Navigation Example</CardTitle>
-          <CardDescription>
-            Click the buttons to navigate between pages
+          <CardDescription className="pt-4">
+            Click the buttons to navigate between pages:
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -57,7 +57,7 @@ export default function QueryCaching() {
             <Button onClick={() => setCurrentPage('page2')}>Page 2</Button>
             <Button onClick={() => setCurrentPage('page3')}>Page 3</Button>
           </div>
-          <div className="p-4 bg-muted rounded-md">
+          <div className="py-4 rounded-md">
             {currentPage === 'page1' && <div>Content for Page 1</div>}
             {currentPage === 'page2' && <div>Content for Page 2</div>}
             {currentPage === 'page3' && <div>Content for Page 3</div>}

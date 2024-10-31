@@ -28,7 +28,7 @@ export default function ReactQuery() {
       </h2>
       <div className="gap-6 grid grid-cols-1 md:grid-cols-2  ">
         <div>
-          <p>
+          <p className="mt-0">
             TanStack Start apps should use React Query (TanStack Query for
             React) hooks instead of the tranditional Convex hooks to take
             advantage of React Query's excellent Start integration. Convex
@@ -90,9 +90,8 @@ export default function ReactQuery() {
           </p>
         </div>
         <div>
-          <p>
-            <CodeSample
-              code={`import { useQuery } from "@tanstack/react-query";
+          <CodeSample
+            code={`import { useQuery } from "@tanstack/react-query";
 import { convexQuery } from "@convex-dev/react-query";
 import { api } from "../convex/_generated/api";
 
@@ -113,8 +112,7 @@ const { data } = useQuery({
   initialData: [],
   gcTime: 10000,
 });`}
-            />
-          </p>
+          />
         </div>
       </div>
 
