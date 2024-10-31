@@ -30,7 +30,7 @@ export default function LandingPage() {
 
   const features = [
     {
-      title: 'React Query hooks',
+      title: 'Using React Query hooks',
       description: 'Supercharging React Query with live updates from Convex.',
       link: '/react-query',
     },
@@ -41,26 +41,26 @@ export default function LandingPage() {
       link: '/ssr',
     },
     {
-      title: 'Loaders and prefetching',
-      description: 'Preload or wait for data in the loader.',
-      link: '/loaders',
-    },
-    {
       title: 'Staying subscribed to queries',
       description: "Data not currently rendered doesn't need to be stale.",
       link: '/gcTime',
     },
     {
+      title: 'Loaders and prefetching',
+      description:
+        'Adding queries to loaders enables prefetching and can prevent waterfalls.',
+      link: '/loaders',
+    },
+    {
       title: 'Consistent Client Views',
       description:
-        'Convex ensures consistent, logical timestamp views of the database.',
+        'Ensures consistent logical timestamp views of the database, even during SSR.',
       link: '/consistent-views',
     },
     {
-      title: 'Data loading philosophy',
-      description:
-        'Block on the server and client. Isomorphic data fetching with a single hook.',
-      link: '/use-suspense-query',
+      title: 'FAQ',
+      description: 'Frequently asked questions',
+      link: '/faq',
     },
   ]
 
@@ -74,22 +74,23 @@ export default function LandingPage() {
         </h1>
         <div className="flex flex-col gap-4 not-prose lg:row-start-2">
           <p className="text-xl font-light text-slate-300">
-            TanStack Start is coming. Instead of the Convex React hooks you're
-            used to, we recommend using Convex to supercharge TanStack Query's
-            excellent Start integration.
+            TanStack Start is coming. The best way to use Convex with Start is a
+            little different than the Convex React hooks you're used to: via
+            React Query's excellent Start integration. This site is{' '}
+            <a href="https://github.com/get-convex/tanstack-start-guide/">
+              written with Start
+            </a>{' '}
+            using this setup.
           </p>
 
           <p className="text-xl font-light text-slate-300">
-            This site is written with Start (see{' '}
-            <a href="https://github.com/get-convex/tanstack-start-guide/">
-              source
-            </a>
-            ) using this setup. It goes over just the tip of the Start iceburg
-            so also check out the{' '}
+            You can jump straight to the quickstart or learn more about this new
+            way to use Convex. There's a lot more to TanStack Start so also
+            check out the{' '}
             <a href="https://tanstack.com/router/latest/docs/framework/react/start/overview">
-              official guide
+              official Start guide
             </a>
-            .
+            .{' '}
           </p>
         </div>
         <div className="flex flex-col not-prose text-slate-300 lg:row-start-2">

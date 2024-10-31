@@ -86,13 +86,13 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link to="/loaders" {...linkProps}>
-                  Loaders
+                <Link to="/gcTime" {...linkProps}>
+                  Staying subscribed
                 </Link>
               </li>
               <li>
-                <Link to="/gcTime" {...linkProps}>
-                  Staying subscribed
+                <Link to="/loaders" {...linkProps}>
+                  Loaders
                 </Link>
               </li>
               <li>
