@@ -30,10 +30,10 @@ export default function QueryCaching() {
           <p className="mt-0">
             When the last component subscribed to a given Convex query unmounts
             that subscription can be dropped. But it's often useful to keep that
-            subscription around for while!
+            subscription around for while.
           </p>
           <p>
-            For fetch requests the React Query option{' '}
+            For non-Convex query function the React Query option{' '}
             <a href="https://tanstack.com/query/latest/docs/framework/react/guides/caching">
               <code>gcTime</code>
             </a>{' '}
@@ -95,13 +95,25 @@ export default function QueryCaching() {
             </div>
           </CardContent>
         </Card>
-        <p>
-          Since client-side navigations in TanStack Start retain the Query
-          Client, these query subscriptions remain active from previous pages as
-          well. When debugging why data is loaded or not it's good to keep this
-          in mind. To get more prescriptive about data being available ahead of
-          time you might add the query to a <Link to="/loaders">loader</Link>.
-        </p>
+        <div>
+          <p>
+            The default <code>gcTime</code> in React Query is five minutes (!)
+            and no changes to this default were made in the Convex query options
+            factories, but this may change in future versions of the
+            integration.
+          </p>
+          <p>
+            Since client-side navigations in TanStack Start preserve the Query
+            Client, these query subscriptions remain active from previous pages
+            as well. When debugging why data is loaded or not it's good to keep
+            this in mind. To get more prescriptive about data being available
+            ahead of time you might add the query to a{' '}
+            <Link to="/loaders" search={{ cacheBust: 'firstload' }}>
+              loader
+            </Link>
+            .
+          </p>
+        </div>
       </div>
       <ReactQueryDevtools initialIsOpen={open} />
     </>

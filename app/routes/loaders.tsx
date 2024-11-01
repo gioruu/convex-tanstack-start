@@ -31,35 +31,17 @@ export default function BlockingAndStreaming() {
             subsequent client-side navigations.
           </p>
           <p>
-            If <code>useSuspenseQuery</code> provides isomorphic data fetching,
-            what are loaders for? Three things:
-          </p>
-          <ol className="list-decimal list-inside [&>li]:marker:font-bold [&>li]:marker:text-slate-500">
-            <li>
-              Loaders are used to{' '}
-              <a href="https://tanstack.com/query/v5/docs/framework/react/guides/prefetching">
-                prefetch
-              </a>{' '}
-              data for a page. By default this happens on mousing into a link.
-            </li>
-            <li>Loaders can prevent data waterfalls by fetching data</li>
-            <li>
-              Blocking in loaders on data being loaded results in
-              `useSuspenseQuery`-like behavior, data during SSR and before
-              navigating, but configured at the route level instead of the
-              component.
-            </li>
-          </ol>
-          <p>Let's focus on prefetching here and blocking here.</p>
-          <p>
-            These three links lead to subpages that show chat messages from
+            These three links navigate to subpages that show chat messages from
             different channels. Notice how client navigations between these
             pages work differently.
           </p>
 
           <p>
             Awaiting <code>ensureQueryData</code> will block rendering of the
-            page until that data is available.
+            page until that data is available and calling{' '}
+            <code>prefetchQuery</code> will start the request but not block.
+            Loaders also run during prefetching, triggered by the cursor mousing
+            onto a link in TanStack Start by default.
           </p>
           <CodeSample
             code={`export const Route = createFileRoute('/loaders')({
@@ -75,6 +57,14 @@ export default function BlockingAndStreaming() {
   },
 })`}
           />
+
+          <p>
+            Loaders let you eject from the convenience of component-local
+            reasoning through
+            <code>useSuspenseQuery</code>
+            where a component fetching its own data, to the cold reality of fast
+            page loads when you need it.
+          </p>
         </div>
         <div>
           <nav className="flex flex-col space-y-4 mb-4">

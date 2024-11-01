@@ -23,9 +23,9 @@ export default function LiveQueriesSSR() {
       <h2>Server-Side Rendering and Live Queries</h2>
       <p>
         TanStack Start routes render on the server for the first page load of a
-        browsing session. The React Query and standard Convex{' '}
-        <code>useQuery()</code> hooks don't kick off requests for this data
-        during this initial SSR pass, but the React Query hook{' '}
+        browsing session. Neither the React Query nor standard Convex{' '}
+        <code>useQuery()</code> hooks kick off requests for this data during
+        this initial SSR pass, but the React Query hook{' '}
         <code>useSuspenseQuery()</code> does. The React Query client is then
         serialized with whatever data was loaded to make it available in the
         browser at hydration time. This reduces rendering on the server and

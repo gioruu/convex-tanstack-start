@@ -80,7 +80,7 @@ export default function ReactQuery() {
             Convex queries benefit from the live update behavior.
           </p>
           <p>
-            What do you get from this change? It's not just often asked-for{' '}
+            What do you get from this change? It's not just the often-asked-for{' '}
             <code>isLoading</code> and <code>error</code> properties or simple
             interop with other server endpoints or introspection from the
             TanStack Query devtools. And it's not just that React Router's
@@ -88,7 +88,7 @@ export default function ReactQuery() {
             <Link to="/ssr">
               server-side rendering and live updating queries
             </Link>{' '}
-            in a single hook, but that's is what we'll look at next.
+            in a single hook, although that's what we'll look at next.
           </p>
         </div>
         <div>
@@ -118,7 +118,7 @@ const { data } = useQuery({
         </div>
       </div>
 
-      <h2>Resources / Learn More</h2>
+      <h2>Learn More</h2>
       <p>
         <a href="https://github.com/get-convex/convex-react-query">
           @convex-dev/react-query
