@@ -8,7 +8,6 @@ import {
 import { query } from './_generated/server'
 import { api, internal } from './_generated/api.js'
 import { v } from 'convex/values'
-import { Id } from './_generated/dataModel'
 
 export const list = query(async (ctx, { cacheBust }) => {
   const _unused = cacheBust
@@ -147,8 +146,6 @@ async function ensureChannel(ctx: MutationCtx, name: string) {
   }
 }
 
-async function addMessages(ctx: MutationCtx, messages: string[]) {}
-
 export const seed = internalMutation(async (ctx) => {
   await ensureChannel(ctx, 'chatty')
   await ensureChannel(ctx, 'sf')
@@ -222,7 +219,3 @@ export const runSimulation = internalMutation(async (ctx) => {
 export const isSimulatingTraffic = query(async (ctx) => {
   return !!(await ctx.db.query('simulating').collect()).length
 })
-
-/*
-export const simulateTraffic = mutation(async (ctx) => {})
-*/
