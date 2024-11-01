@@ -5,10 +5,21 @@ import { Button } from '~/components/ui/button'
 
 export const Route = createFileRoute('/loaders')({
   component: BlockingAndStreaming,
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      cacheBust:
+        typeof search.cacheBust === 'string' ? search.cacheBust : 'abcd',
+    }
+  },
 })
 
+function rand() {
+  return `cb${Math.random().toString(16).substring(2, 6)}`
+}
+
 export default function BlockingAndStreaming() {
-  const [cacheBust, setCacheBust] = useState('' + Math.random())
+  const { cacheBust: initialCacheBust } = Route.useSearch()
+  const [cacheBust, setCacheBust] = useState(initialCacheBust)
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -22,21 +33,24 @@ export default function BlockingAndStreaming() {
           <p>
             If <code>useSuspenseQuery</code> provides isomorphic data fetching,
             what are loaders for? Three things:
-            <ol className="list-decimal list-inside [&>li]:marker:font-bold [&>li]:marker:text-slate-500">
-              <li>
-                Loaders are used to <a href="">prefetch</a> data for a page. By
-                default this happens on mousing into a link.
-              </li>
-              <li>Loaders can prevent data waterfalls by fetching data</li>
-              <li>
-                Blocking in loaders on data being loaded results in
-                `useSuspenseQuery`-like behavior, data during SSR and before
-                navigating, but configured at the route level instead of the
-                component.
-              </li>
-            </ol>
-            Let's focus on prefetching here and blocking here.
           </p>
+          <ol className="list-decimal list-inside [&>li]:marker:font-bold [&>li]:marker:text-slate-500">
+            <li>
+              Loaders are used to{' '}
+              <a href="https://tanstack.com/query/v5/docs/framework/react/guides/prefetching">
+                prefetch
+              </a>{' '}
+              data for a page. By default this happens on mousing into a link.
+            </li>
+            <li>Loaders can prevent data waterfalls by fetching data</li>
+            <li>
+              Blocking in loaders on data being loaded results in
+              `useSuspenseQuery`-like behavior, data during SSR and before
+              navigating, but configured at the route level instead of the
+              component.
+            </li>
+          </ol>
+          <p>Let's focus on prefetching here and blocking here.</p>
           <p>
             These three links lead to subpages that show chat messages from
             different channels. Notice how client navigations between these
@@ -63,12 +77,12 @@ export default function BlockingAndStreaming() {
           />
         </div>
         <div>
-          <nav className="flex flex-col space-y-4">
+          <nav className="flex flex-col space-y-4 mb-4">
             <Button asChild>
               <Link
                 to="/loaders/ensure"
-                search={{ cacheBust: cacheBust + 'a' }}
-                onClick={() => setCacheBust('' + Math.random())}
+                search={{ cacheBust }}
+                onClick={() => setCacheBust(rand())}
               >
                 <code>await queryClient.ensureQueryData</code> blocks for data
                 and preloads on mouseenter
@@ -77,8 +91,8 @@ export default function BlockingAndStreaming() {
             <Button asChild>
               <Link
                 to="/loaders/prefetch"
-                search={{ cacheBust: cacheBust + 'b' }}
-                onClick={() => setCacheBust('' + Math.random())}
+                search={{ cacheBust }}
+                onClick={() => setCacheBust(rand())}
               >
                 <code>queryClient.preloadQuery()</code> loads on mouseenter but
                 doesn't block
@@ -87,8 +101,8 @@ export default function BlockingAndStreaming() {
             <Button asChild>
               <Link
                 to="/loaders/no-loader"
-                search={{ cacheBust: cacheBust + 'c' }}
-                onClick={() => setCacheBust('' + Math.random())}
+                search={{ cacheBust }}
+                onClick={() => setCacheBust(rand())}
               >
                 no loader, so mouseover does nothing
               </Link>

@@ -34,7 +34,7 @@ export default function ConsistentClientViews() {
 
   return (
     <>
-      <h2>Consistent Client Views</h2>
+      <h2>Consistent Client Views - this page still TODO</h2>
       <p>
         Server-side rendering is a special case: in order to build the HTML,
         Convex uses a single render. For client-side navigations, Convex always

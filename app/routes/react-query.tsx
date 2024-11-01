@@ -10,17 +10,19 @@ import { ReloadIcon } from '@radix-ui/react-icons'
 export const Route = createFileRoute('/react-query')({
   component: ReactQuery,
   loader: ({ context }) => {
-    context.queryClient.prefetchQuery(
-      convexQuery(api.messages.isSimulatingTraffic, {}),
-    )
+    context.queryClient.prefetchQuery({
+      ...convexQuery(api.messages.isSimulatingTraffic, {}),
+      gcTime: 2000,
+    })
   },
 })
 
 export default function ReactQuery() {
   const sendTraffic = useConvexMutation(api.messages.simulateTraffic)
-  const { data: simulationRunning } = useSuspenseQuery(
-    convexQuery(api.messages.isSimulatingTraffic, {}),
-  )
+  const { data: simulationRunning } = useSuspenseQuery({
+    ...convexQuery(api.messages.isSimulatingTraffic, {}),
+    gcTime: 2000,
+  })
   return (
     <>
       <h2>
@@ -61,7 +63,7 @@ export default function ReactQuery() {
               ) : null}
             </Button>
           </p>
-          <Chat useSuspense={true} showCode={false} />
+          <Chat useSuspense={true} />
           <p>
             Even if you're not familiar with React Query these hooks should feel
             familiar. Instead of returning the data directly, this{' '}

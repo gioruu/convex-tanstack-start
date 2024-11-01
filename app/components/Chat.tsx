@@ -54,18 +54,28 @@ const MessageSkeleton = () => (
 
 export default function Component({
   useSuspense,
-  showCode,
+  codeToShow,
+  channel = 'chatty',
+  gcTime = 10000,
+  cacheBust,
 }: {
   useSuspense: boolean
-  showCode: boolean
+  codeToShow?: string
+  channel?: string
+  gcTime?: number
+  cacheBust?: any
 }) {
   const useWhicheverQuery: typeof useQuery = useSuspense
     ? (useSuspenseQuery as typeof useQuery)
     : useQuery
 
-  const { data, isPending, error } = useWhicheverQuery(
-    convexQuery(api.messages.listMessages, { cacheBust: useSuspense }),
-  )
+  const { data, isPending, error } = useWhicheverQuery({
+    ...convexQuery(api.messages.listMessages, {
+      channel,
+      ...(cacheBust ? { cacheBust } : {}),
+    }),
+    gcTime,
+  })
 
   const [name] = useState(() => 'User ' + Math.floor(Math.random() * 10000))
   const [newMessage, setNewMessage] = useState('')
@@ -73,28 +83,12 @@ export default function Component({
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
-      await sendMessage({ user: name, body: newMessage })
+      await sendMessage({ user: name, body: newMessage, channel })
       setNewMessage('')
     }
   }
 
-  const code = showCode ? (
-    useSuspense ? (
-      <CodeSample
-        code={`const { data } = useSuspenseQuery(convexQuery(
-  api.messages.listMessages,
-  { channel: "chatty" }
-))`}
-      />
-    ) : (
-      <CodeSample
-        code={`const { data, isPending } = useQuery(convexQuery(
-  api.messages.listMessages,
-  { channel: "chatty" }
-))`}
-      />
-    )
-  ) : null
+  const code = codeToShow && <CodeSample code={codeToShow} />
 
   const input = (
     <div className="flex w-full items-center space-x-2 pt-6">

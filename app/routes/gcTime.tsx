@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import Chat from '~/components/Chat'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools/production'
 import { useState } from 'react'
 import { Button } from '../components/ui/button'
 import {
@@ -14,62 +16,94 @@ export const Route = createFileRoute('/gcTime')({
 })
 
 export default function QueryCaching() {
-  const [currentPage, setCurrentPage] = useState('page1')
+  const [channel, setChannel] = useState('sf')
+  const [open, setOpen] = useState(false)
+  if (typeof window !== 'undefined') {
+    ;(window as any).setOpen = setOpen
+  }
 
   return (
     <>
-      <h2>Staying subscribed to queries after unmount</h2>
-      <p>
-        As a user navigages around a site or dynamically mounts and unmounts
-        components, some data is no longer needed. For fetch requests the React
-        Query option{' '}
-        <a href="https://tanstack.com/query/latest/docs/framework/react/guides/caching">
-          <code>gcTime</code>
-        </a>{' '}
-        is the length of time to hold on to a stale result before dropping it
-        out of cache.
-      </p>
-      <p>
-        For a convexQuery this means something else: how long to say subscribed
-        to a query while it is not mounted. The default is to remain subscribed
-        to a query for 60 seconds after the last component using tha query
-        unmounts.
-      </p>
-      <p>
-        Try navigating between these channel pages. If you've visited one in the
-        last 10 seconds it won't be loading when you return to it.
-      </p>
-      <p>
-        Open up the TanStack Query Devtools to watch these query subscriptions
-        end.
-      </p>
-      <p>TODO I gotta figure out subroutes? subpages? for this.</p>
-      <Card className="not-prose">
-        <CardHeader>
-          <CardTitle>Navigation Example</CardTitle>
-          <CardDescription className="pt-4">
-            Click the buttons to navigate between pages:
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex space-x-4">
-            <Button onClick={() => setCurrentPage('page1')}>Page 1</Button>
-            <Button onClick={() => setCurrentPage('page2')}>Page 2</Button>
-            <Button onClick={() => setCurrentPage('page3')}>Page 3</Button>
-          </div>
-          <div className="py-4 rounded-md">
-            {currentPage === 'page1' && <div>Content for Page 1</div>}
-            {currentPage === 'page2' && <div>Content for Page 2</div>}
-            {currentPage === 'page3' && <div>Content for Page 3</div>}
-          </div>
-        </CardContent>
-      </Card>
-      <p>
-        In a real application, each page would fetch its own data. TanStack
-        Query would cache this data, making subsequent navigations instant. You
-        could also implement prefetching to load data for other pages in
-        advance.
-      </p>
+      <h2>Maintaining subscriptions to queries</h2>
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2  ">
+        <div>
+          <p className="mt-0">
+            When the last component subscribed to a given Convex query unmounts
+            that subscription can be dropped. But it's often useful to keep that
+            subscription around for while!
+          </p>
+          <p>
+            For fetch requests the React Query option{' '}
+            <a href="https://tanstack.com/query/latest/docs/framework/react/guides/caching">
+              <code>gcTime</code>
+            </a>{' '}
+            is the length of time to hold on to a stale result before dropping
+            it out of cache. Convex queries use the same parameter to mean how
+            long to stay subscribed to the query. This way Convex query results
+            are always consistent, are never stale.
+          </p>
+          <p>
+            <Button
+              variant="link"
+              onClick={() => {
+                const element = document.querySelector(
+                  '[aria-label="Open Tanstack query devtools"]',
+                )
+                element?.dispatchEvent(
+                  new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                  }),
+                )
+              }}
+            >
+              Open the React Query devtools
+            </Button>{' '}
+            to see these query subscriptions stick around as you click between
+            chat channels. These queries use a <code>gcTime</code> of 10
+            seconds. If you want subscriptions to be dropped immediately use a{' '}
+            <code>gcTime</code> of 0.
+          </p>
+        </div>
+        <Card className="not-prose">
+          <CardHeader>
+            <div className="flex space-x-4">
+              <Button
+                className={channel === 'sf' ? 'bg-slate-400' : ''}
+                onClick={() => setChannel('sf')}
+              >
+                SF
+              </Button>
+              <Button
+                className={channel === 'nyc' ? 'bg-slate-400' : ''}
+                onClick={() => setChannel('nyc')}
+              >
+                NYC
+              </Button>
+              <Button
+                className={channel === 'seattle' ? 'bg-slate-400' : ''}
+                onClick={() => setChannel('seattle')}
+              >
+                Seattle
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="py-4 rounded-md">
+              <Chat useSuspense={false} channel={channel} />
+            </div>
+          </CardContent>
+        </Card>
+        <p>
+          Since client-side navigations in TanStack Start retain the Query
+          Client, these query subscriptions remain active from previous pages as
+          well. When debugging why data is loaded or not it's good to keep this
+          in mind. To get more prescriptive about data being available ahead of
+          time you might add the query to a <Link to="/loaders">loader</Link>.
+        </p>
+      </div>
+      <ReactQueryDevtools initialIsOpen={open} />
     </>
   )
 }

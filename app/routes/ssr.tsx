@@ -13,9 +13,11 @@ export const Route = createFileRoute('/ssr')({
 
 export default function LiveQueriesSSR() {
   const sendTraffic = useConvexMutation(api.messages.simulateTraffic)
-  const { data: simulationRunning } = useSuspenseQuery(
-    convexQuery(api.messages.isSimulatingTraffic, {}),
-  )
+  const { data: simulationRunning } = useSuspenseQuery({
+    ...convexQuery(api.messages.isSimulatingTraffic, {}),
+    gcTime: 2000,
+  })
+
   return (
     <>
       <h2>Server-Side Rendering and Live Queries</h2>
@@ -49,8 +51,22 @@ export default function LiveQueriesSSR() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <Chat useSuspense={true} showCode={true} />
-        <Chat useSuspense={false} showCode={true} />
+        <Chat
+          useSuspense={true}
+          cacheBust={'left ssr example'}
+          codeToShow={`const { data } = useSuspenseQuery(convexQuery(
+  api.messages.listMessages,
+  { channel: "chatty" }
+))`}
+        />
+        <Chat
+          useSuspense={false}
+          cacheBust={'right ssr example'}
+          codeToShow={`const { data, isPending } = useQuery(convexQuery(
+  api.messages.listMessages,
+  { channel: "chatty" }
+))`}
+        />
       </div>
 
       <p>On the browser these queries resume their subscriptions:</p>

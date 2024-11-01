@@ -1,7 +1,5 @@
-import { convexQuery } from '@convex-dev/react-query'
-import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { api } from 'convex/_generated/api'
+import Chat from '~/components/Chat'
 
 export const Route = createFileRoute('/loaders/no-loader')({
   component: Messages,
@@ -14,13 +12,14 @@ export const Route = createFileRoute('/loaders/no-loader')({
 
 function Messages() {
   const { cacheBust } = Route.useSearch()
-  const { data } = useQuery(
-    convexQuery(api.messages.listMessages, { cacheBust }),
-  )
   return (
     <div>
-      <div>Hello /loaders/ensure! Channel {cacheBust}</div>
-      {data?.map((msg) => <div>{JSON.stringify(msg)}</div>)}
+      <Chat
+        channel="nyc"
+        gcTime={10000}
+        useSuspense={false}
+        cacheBust={cacheBust}
+      />
     </div>
   )
 }
