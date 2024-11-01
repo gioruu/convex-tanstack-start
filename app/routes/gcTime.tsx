@@ -97,10 +97,11 @@ export default function QueryCaching() {
         </Card>
         <div>
           <p>
-            The default <code>gcTime</code> in React Query is five minutes (!)
-            and no changes to this default were made in the Convex query options
-            factories, but this may change in future versions of the
-            integration.
+            The default <code>gcTime</code> in React Query is five minutes and
+            this is not currently overridden in the Convex query options
+            factories like <code>convexQuery()</code>, but this may change in
+            future versions of the integration. You can always override this
+            value by spreading the query options into a new options object.
           </p>
           <p>
             Since client-side navigations in TanStack Start preserve the Query
