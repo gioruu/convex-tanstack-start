@@ -102,7 +102,13 @@ export default function BlockingAndStreaming() {
         </div>
       </div>
       <h2>Resources / Learning More</h2>
-      <p>Watch Tanner's video for more!</p>
+      <p>
+        Tanner's{' '}
+        <a href="https://www.youtube.com/watch?v=AuHqwQsf64o">
+          An Early Glimpse of TanStack Start"
+        </a>{' '}
+        video
+      </p>
       <p>
         <a href="https://tanstack.com/router/latest/docs/framework/react/guide/preloading">
           TanStack Router Preloading Guide

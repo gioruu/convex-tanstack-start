@@ -80,16 +80,18 @@ export default function LiveQueriesSSR() {
       </p>
       <p>
         Another way to opt into server-side data loading load in a{' '}
-        <Link to="/loaders">loader</Link>.
+        <Link to="/loaders" search={{ cacheBust: 'initial' }}>
+          loader
+        </Link>
+        .
       </p>
-      <h2>Resources / Learning More</h2>
+      <h2>Learn More</h2>
+
       <p>
-        <a href="https://github.com/get-convex/convex-react-query">
-          @convex-dev/react-query
+        <a href="https://tanstack.com/router/latest/docs/framework/react/start/ssr">
+          TanStack Start SSR Guide
         </a>
       </p>
-      <p>Read about TanStack Query</p>
-      <p>React Query's integration with TanStack Start</p>
     </>
   )
 }

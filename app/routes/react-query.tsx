@@ -120,17 +120,16 @@ const { data } = useQuery({
 
       <h2>Learn More</h2>
       <p>
-        <a href="https://github.com/get-convex/convex-react-query">
-          @convex-dev/react-query
+        <a href="https://tanstack.com/query/latest/docs/framework/react/overviewj">
+          TanStack Query (AKA React Query) docs
         </a>
       </p>
-      <p>Read about TanStack Query</p>
-      <p>https://docs.convex.dev/client/tanstack-query</p>
-      <p>React Query's integration with TanStack Start</p>
       <p>
-        <a href="https://tanstack.com/router/latest/docs/framework/react/start/ssr">
-          TanStack Start SSR Guide
-        </a>
+        The{' '}
+        <a href="https://github.com/get-convex/convex-react-query">
+          @convex-dev/react-query
+        </a>{' '}
+        library links the TanStack Query Client with the Convex client
       </p>
     </>
   )

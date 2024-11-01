@@ -109,7 +109,7 @@ export default function QueryCaching() {
             as well. When debugging why data is loaded or not it's good to keep
             this in mind. To get more prescriptive about data being available
             ahead of time you might add the query to a{' '}
-            <Link to="/loaders" search={{ cacheBust: 'firstload' }}>
+            <Link to="/loaders" search={{ cacheBust: 'initial' }}>
               loader
             </Link>
             .
