@@ -11,15 +11,10 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as UseSuspenseQueryImport } from './routes/useSuspenseQuery'
-import { Route as SubsequentQueriesImport } from './routes/subsequent-queries'
 import { Route as SsrImport } from './routes/ssr'
-import { Route as SimpleSiblingQueriesImport } from './routes/simple-sibling-queries'
 import { Route as ReactQueryImport } from './routes/react-query'
 import { Route as LoadersImport } from './routes/loaders'
 import { Route as GcTimeImport } from './routes/gcTime'
-import { Route as FaqImport } from './routes/faq'
-import { Route as ConsistentViewsImport } from './routes/consistent-views'
 import { Route as IndexImport } from './routes/index'
 import { Route as LoadersPrefetchImport } from './routes/loaders/prefetch'
 import { Route as LoadersNoLoaderImport } from './routes/loaders/no-loader'
@@ -27,27 +22,9 @@ import { Route as LoadersEnsureImport } from './routes/loaders/ensure'
 
 // Create/Update Routes
 
-const UseSuspenseQueryRoute = UseSuspenseQueryImport.update({
-  id: '/useSuspenseQuery',
-  path: '/useSuspenseQuery',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SubsequentQueriesRoute = SubsequentQueriesImport.update({
-  id: '/subsequent-queries',
-  path: '/subsequent-queries',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const SsrRoute = SsrImport.update({
   id: '/ssr',
   path: '/ssr',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SimpleSiblingQueriesRoute = SimpleSiblingQueriesImport.update({
-  id: '/simple-sibling-queries',
-  path: '/simple-sibling-queries',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -66,18 +43,6 @@ const LoadersRoute = LoadersImport.update({
 const GcTimeRoute = GcTimeImport.update({
   id: '/gcTime',
   path: '/gcTime',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const FaqRoute = FaqImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ConsistentViewsRoute = ConsistentViewsImport.update({
-  id: '/consistent-views',
-  path: '/consistent-views',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -116,20 +81,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/consistent-views': {
-      id: '/consistent-views'
-      path: '/consistent-views'
-      fullPath: '/consistent-views'
-      preLoaderRoute: typeof ConsistentViewsImport
-      parentRoute: typeof rootRoute
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqImport
-      parentRoute: typeof rootRoute
-    }
     '/gcTime': {
       id: '/gcTime'
       path: '/gcTime'
@@ -151,32 +102,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactQueryImport
       parentRoute: typeof rootRoute
     }
-    '/simple-sibling-queries': {
-      id: '/simple-sibling-queries'
-      path: '/simple-sibling-queries'
-      fullPath: '/simple-sibling-queries'
-      preLoaderRoute: typeof SimpleSiblingQueriesImport
-      parentRoute: typeof rootRoute
-    }
     '/ssr': {
       id: '/ssr'
       path: '/ssr'
       fullPath: '/ssr'
       preLoaderRoute: typeof SsrImport
-      parentRoute: typeof rootRoute
-    }
-    '/subsequent-queries': {
-      id: '/subsequent-queries'
-      path: '/subsequent-queries'
-      fullPath: '/subsequent-queries'
-      preLoaderRoute: typeof SubsequentQueriesImport
-      parentRoute: typeof rootRoute
-    }
-    '/useSuspenseQuery': {
-      id: '/useSuspenseQuery'
-      path: '/useSuspenseQuery'
-      fullPath: '/useSuspenseQuery'
-      preLoaderRoute: typeof UseSuspenseQueryImport
       parentRoute: typeof rootRoute
     }
     '/loaders/ensure': {
@@ -222,15 +152,10 @@ const LoadersRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/consistent-views': typeof ConsistentViewsRoute
-  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
-  '/subsequent-queries': typeof SubsequentQueriesRoute
-  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
   '/loaders/no-loader': typeof LoadersNoLoaderRoute
   '/loaders/prefetch': typeof LoadersPrefetchRoute
@@ -238,15 +163,10 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/consistent-views': typeof ConsistentViewsRoute
-  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
-  '/subsequent-queries': typeof SubsequentQueriesRoute
-  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
   '/loaders/no-loader': typeof LoadersNoLoaderRoute
   '/loaders/prefetch': typeof LoadersPrefetchRoute
@@ -255,15 +175,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/consistent-views': typeof ConsistentViewsRoute
-  '/faq': typeof FaqRoute
   '/gcTime': typeof GcTimeRoute
   '/loaders': typeof LoadersRouteWithChildren
   '/react-query': typeof ReactQueryRoute
-  '/simple-sibling-queries': typeof SimpleSiblingQueriesRoute
   '/ssr': typeof SsrRoute
-  '/subsequent-queries': typeof SubsequentQueriesRoute
-  '/useSuspenseQuery': typeof UseSuspenseQueryRoute
   '/loaders/ensure': typeof LoadersEnsureRoute
   '/loaders/no-loader': typeof LoadersNoLoaderRoute
   '/loaders/prefetch': typeof LoadersPrefetchRoute
@@ -273,45 +188,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/consistent-views'
-    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/simple-sibling-queries'
     | '/ssr'
-    | '/subsequent-queries'
-    | '/useSuspenseQuery'
     | '/loaders/ensure'
     | '/loaders/no-loader'
     | '/loaders/prefetch'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/consistent-views'
-    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/simple-sibling-queries'
     | '/ssr'
-    | '/subsequent-queries'
-    | '/useSuspenseQuery'
     | '/loaders/ensure'
     | '/loaders/no-loader'
     | '/loaders/prefetch'
   id:
     | '__root__'
     | '/'
-    | '/consistent-views'
-    | '/faq'
     | '/gcTime'
     | '/loaders'
     | '/react-query'
-    | '/simple-sibling-queries'
     | '/ssr'
-    | '/subsequent-queries'
-    | '/useSuspenseQuery'
     | '/loaders/ensure'
     | '/loaders/no-loader'
     | '/loaders/prefetch'
@@ -320,28 +220,18 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ConsistentViewsRoute: typeof ConsistentViewsRoute
-  FaqRoute: typeof FaqRoute
   GcTimeRoute: typeof GcTimeRoute
   LoadersRoute: typeof LoadersRouteWithChildren
   ReactQueryRoute: typeof ReactQueryRoute
-  SimpleSiblingQueriesRoute: typeof SimpleSiblingQueriesRoute
   SsrRoute: typeof SsrRoute
-  SubsequentQueriesRoute: typeof SubsequentQueriesRoute
-  UseSuspenseQueryRoute: typeof UseSuspenseQueryRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ConsistentViewsRoute: ConsistentViewsRoute,
-  FaqRoute: FaqRoute,
   GcTimeRoute: GcTimeRoute,
   LoadersRoute: LoadersRouteWithChildren,
   ReactQueryRoute: ReactQueryRoute,
-  SimpleSiblingQueriesRoute: SimpleSiblingQueriesRoute,
   SsrRoute: SsrRoute,
-  SubsequentQueriesRoute: SubsequentQueriesRoute,
-  UseSuspenseQueryRoute: UseSuspenseQueryRoute,
 }
 
 export const routeTree = rootRoute
@@ -357,25 +247,14 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/consistent-views",
-        "/faq",
         "/gcTime",
         "/loaders",
         "/react-query",
-        "/simple-sibling-queries",
-        "/ssr",
-        "/subsequent-queries",
-        "/useSuspenseQuery"
+        "/ssr"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/consistent-views": {
-      "filePath": "consistent-views.tsx"
-    },
-    "/faq": {
-      "filePath": "faq.tsx"
     },
     "/gcTime": {
       "filePath": "gcTime.tsx"
@@ -391,17 +270,8 @@ export const routeTree = rootRoute
     "/react-query": {
       "filePath": "react-query.tsx"
     },
-    "/simple-sibling-queries": {
-      "filePath": "simple-sibling-queries.tsx"
-    },
     "/ssr": {
       "filePath": "ssr.tsx"
-    },
-    "/subsequent-queries": {
-      "filePath": "subsequent-queries.tsx"
-    },
-    "/useSuspenseQuery": {
-      "filePath": "useSuspenseQuery.tsx"
     },
     "/loaders/ensure": {
       "filePath": "loaders/ensure.tsx",

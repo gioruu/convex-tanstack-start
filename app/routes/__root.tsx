@@ -7,7 +7,6 @@ import {
 } from '@tanstack/react-router'
 import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 import * as React from 'react'
-import { Button } from '~/components/ui/button'
 import appCss from '../styles/app.css?url'
 import { cn } from '~/lib/utils'
 
@@ -91,18 +90,12 @@ export default function RootLayout({
                 </Link>
               </li>
               <li>
-                <Link to="/loaders" {...linkProps}>
+                <Link
+                  to="/loaders"
+                  search={{ cacheBust: 'initial' }}
+                  {...linkProps}
+                >
                   Loaders
-                </Link>
-              </li>
-              <li>
-                <Link to="/consistent-views" {...linkProps}>
-                  Consistent Views
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" {...linkProps}>
-                  FAQ
                 </Link>
               </li>
             </ul>

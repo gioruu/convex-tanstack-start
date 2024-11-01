@@ -51,17 +51,6 @@ export default function LandingPage() {
         'Adding queries to loaders enables prefetching and can prevent waterfalls.',
       link: '/loaders',
     },
-    {
-      title: 'Consistent Client Views',
-      description:
-        'Ensures consistent logical timestamp views of the database, even during SSR.',
-      link: '/consistent-views',
-    },
-    {
-      title: 'FAQ',
-      description: 'Frequently asked questions',
-      link: '/faq',
-    },
   ]
 
   return (
