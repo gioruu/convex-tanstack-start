@@ -23,18 +23,18 @@ const Message = ({
   body: string
   _creationTime: number
 }) => (
-  <div className="flex items-start space-x-2 mb-4">
-    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
+  <div className="flex items-center gap-2">
+    <div className="w-8 h-8 rounded-full bg-slate-600 text-slate-300 text-primary-foreground flex items-center justify-center font-black">
       {user.toLowerCase().startsWith('user ') ? user[5] : user[0].toUpperCase()}
     </div>
     <div className="flex-1">
-      <div className="flex items-baseline">
-        <span className="font-semibold mr-2">{user}</span>
-        <span className="text-xs text-muted-foreground">
+      <div className="flex text-sm items-baseline">
+        <span className="mr-2 font-semibold text-white">{user}</span>
+        <span className="text-slate-400">
           {new Date(_creationTime).toLocaleDateString()}
         </span>
       </div>
-      <p className="text-sm mt-1">{body}</p>
+      <p className="text-base m-0">{body}</p>
     </div>
   </div>
 )

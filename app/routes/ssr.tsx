@@ -85,13 +85,14 @@ export default function LiveQueriesSSR() {
         </Link>
         .
       </p>
-      <h2>Learn More</h2>
-
-      <p>
-        <a href="https://tanstack.com/router/latest/docs/framework/react/start/ssr">
-          TanStack Start SSR Guide
-        </a>
-      </p>
+      <h2>Learn more</h2>
+      <ul className="list-disc">
+        <li>
+          <a href="https://tanstack.com/router/latest/docs/framework/react/start/ssr">
+            TanStack Start SSR Guide
+          </a>
+        </li>
+      </ul>
     </>
   )
 }

@@ -55,8 +55,10 @@ export default function ReactQuery() {
           </p>
           <p>
             Open this page in another tab or on your phone and send a message to
-            see these updates pushed live.{' '}
-            <Button variant="ghost" onClick={() => sendTraffic()}>
+            see these updates pushed live.
+          </p>
+          <p>
+            <Button onClick={() => sendTraffic()}>
               Simulat{simulationRunning ? 'ing' : 'e'} chat traffic{' '}
               {simulationRunning ? (
                 <ReloadIcon className="h-4 w-4 animate-spin inline" />
@@ -118,19 +120,21 @@ const { data } = useQuery({
         </div>
       </div>
 
-      <h2>Learn More</h2>
-      <p>
-        <a href="https://tanstack.com/query/latest/docs/framework/react/overviewj">
-          TanStack Query (AKA React Query) docs
-        </a>
-      </p>
-      <p>
-        The{' '}
-        <a href="https://github.com/get-convex/convex-react-query">
-          @convex-dev/react-query
-        </a>{' '}
-        library links the TanStack Query Client with the Convex client
-      </p>
+      <h2>Learn more</h2>
+      <ul className="list-disc">
+        <li>
+          <a href="https://tanstack.com/query/latest/docs/framework/react/overviewj">
+            TanStack Query (AKA React Query) docs
+          </a>
+        </li>
+        <li>
+          The{' '}
+          <a href="https://github.com/get-convex/convex-react-query">
+            @convex-dev/react-query
+          </a>{' '}
+          library links the TanStack Query Client with the Convex client
+        </li>
+      </ul>
     </>
   )
 }

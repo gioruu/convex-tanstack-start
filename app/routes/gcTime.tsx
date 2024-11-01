@@ -44,7 +44,6 @@ export default function QueryCaching() {
           </p>
           <p>
             <Button
-              variant="link"
               onClick={() => {
                 const element = document.querySelector(
                   '[aria-label="Open Tanstack query devtools"]',
@@ -96,7 +95,7 @@ export default function QueryCaching() {
           </CardContent>
         </Card>
         <div>
-          <p>
+          <p className="mt-0">
             The default <code>gcTime</code> in React Query is five minutes and
             this is not currently overridden in the Convex query options
             factories like <code>convexQuery()</code>, but this may change in

@@ -86,7 +86,7 @@ export default function RootLayout({
               </li>
               <li>
                 <Link to="/gcTime" {...linkProps}>
-                  Staying subscribed
+                  Staying Subscribed
                 </Link>
               </li>
               <li>
