@@ -11,63 +11,14 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SsrImport } from './routes/ssr'
-import { Route as ReactQueryImport } from './routes/react-query'
-import { Route as LoadersImport } from './routes/loaders'
-import { Route as GcTimeImport } from './routes/gcTime'
 import { Route as IndexImport } from './routes/index'
-import { Route as LoadersPrefetchImport } from './routes/loaders/prefetch'
-import { Route as LoadersNoLoaderImport } from './routes/loaders/no-loader'
-import { Route as LoadersEnsureImport } from './routes/loaders/ensure'
 
 // Create/Update Routes
-
-const SsrRoute = SsrImport.update({
-  id: '/ssr',
-  path: '/ssr',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ReactQueryRoute = ReactQueryImport.update({
-  id: '/react-query',
-  path: '/react-query',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LoadersRoute = LoadersImport.update({
-  id: '/loaders',
-  path: '/loaders',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const GcTimeRoute = GcTimeImport.update({
-  id: '/gcTime',
-  path: '/gcTime',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
-
-const LoadersPrefetchRoute = LoadersPrefetchImport.update({
-  id: '/prefetch',
-  path: '/prefetch',
-  getParentRoute: () => LoadersRoute,
-} as any)
-
-const LoadersNoLoaderRoute = LoadersNoLoaderImport.update({
-  id: '/no-loader',
-  path: '/no-loader',
-  getParentRoute: () => LoadersRoute,
-} as any)
-
-const LoadersEnsureRoute = LoadersEnsureImport.update({
-  id: '/ensure',
-  path: '/ensure',
-  getParentRoute: () => LoadersRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -81,157 +32,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/gcTime': {
-      id: '/gcTime'
-      path: '/gcTime'
-      fullPath: '/gcTime'
-      preLoaderRoute: typeof GcTimeImport
-      parentRoute: typeof rootRoute
-    }
-    '/loaders': {
-      id: '/loaders'
-      path: '/loaders'
-      fullPath: '/loaders'
-      preLoaderRoute: typeof LoadersImport
-      parentRoute: typeof rootRoute
-    }
-    '/react-query': {
-      id: '/react-query'
-      path: '/react-query'
-      fullPath: '/react-query'
-      preLoaderRoute: typeof ReactQueryImport
-      parentRoute: typeof rootRoute
-    }
-    '/ssr': {
-      id: '/ssr'
-      path: '/ssr'
-      fullPath: '/ssr'
-      preLoaderRoute: typeof SsrImport
-      parentRoute: typeof rootRoute
-    }
-    '/loaders/ensure': {
-      id: '/loaders/ensure'
-      path: '/ensure'
-      fullPath: '/loaders/ensure'
-      preLoaderRoute: typeof LoadersEnsureImport
-      parentRoute: typeof LoadersImport
-    }
-    '/loaders/no-loader': {
-      id: '/loaders/no-loader'
-      path: '/no-loader'
-      fullPath: '/loaders/no-loader'
-      preLoaderRoute: typeof LoadersNoLoaderImport
-      parentRoute: typeof LoadersImport
-    }
-    '/loaders/prefetch': {
-      id: '/loaders/prefetch'
-      path: '/prefetch'
-      fullPath: '/loaders/prefetch'
-      preLoaderRoute: typeof LoadersPrefetchImport
-      parentRoute: typeof LoadersImport
-    }
   }
 }
 
 // Create and export the route tree
 
-interface LoadersRouteChildren {
-  LoadersEnsureRoute: typeof LoadersEnsureRoute
-  LoadersNoLoaderRoute: typeof LoadersNoLoaderRoute
-  LoadersPrefetchRoute: typeof LoadersPrefetchRoute
-}
-
-const LoadersRouteChildren: LoadersRouteChildren = {
-  LoadersEnsureRoute: LoadersEnsureRoute,
-  LoadersNoLoaderRoute: LoadersNoLoaderRoute,
-  LoadersPrefetchRoute: LoadersPrefetchRoute,
-}
-
-const LoadersRouteWithChildren =
-  LoadersRoute._addFileChildren(LoadersRouteChildren)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRouteWithChildren
-  '/react-query': typeof ReactQueryRoute
-  '/ssr': typeof SsrRoute
-  '/loaders/ensure': typeof LoadersEnsureRoute
-  '/loaders/no-loader': typeof LoadersNoLoaderRoute
-  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRouteWithChildren
-  '/react-query': typeof ReactQueryRoute
-  '/ssr': typeof SsrRoute
-  '/loaders/ensure': typeof LoadersEnsureRoute
-  '/loaders/no-loader': typeof LoadersNoLoaderRoute
-  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/gcTime': typeof GcTimeRoute
-  '/loaders': typeof LoadersRouteWithChildren
-  '/react-query': typeof ReactQueryRoute
-  '/ssr': typeof SsrRoute
-  '/loaders/ensure': typeof LoadersEnsureRoute
-  '/loaders/no-loader': typeof LoadersNoLoaderRoute
-  '/loaders/prefetch': typeof LoadersPrefetchRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/gcTime'
-    | '/loaders'
-    | '/react-query'
-    | '/ssr'
-    | '/loaders/ensure'
-    | '/loaders/no-loader'
-    | '/loaders/prefetch'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/gcTime'
-    | '/loaders'
-    | '/react-query'
-    | '/ssr'
-    | '/loaders/ensure'
-    | '/loaders/no-loader'
-    | '/loaders/prefetch'
-  id:
-    | '__root__'
-    | '/'
-    | '/gcTime'
-    | '/loaders'
-    | '/react-query'
-    | '/ssr'
-    | '/loaders/ensure'
-    | '/loaders/no-loader'
-    | '/loaders/prefetch'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GcTimeRoute: typeof GcTimeRoute
-  LoadersRoute: typeof LoadersRouteWithChildren
-  ReactQueryRoute: typeof ReactQueryRoute
-  SsrRoute: typeof SsrRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GcTimeRoute: GcTimeRoute,
-  LoadersRoute: LoadersRouteWithChildren,
-  ReactQueryRoute: ReactQueryRoute,
-  SsrRoute: SsrRoute,
 }
 
 export const routeTree = rootRoute
@@ -246,44 +79,11 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/gcTime",
-        "/loaders",
-        "/react-query",
-        "/ssr"
+        "/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/gcTime": {
-      "filePath": "gcTime.tsx"
-    },
-    "/loaders": {
-      "filePath": "loaders.tsx",
-      "children": [
-        "/loaders/ensure",
-        "/loaders/no-loader",
-        "/loaders/prefetch"
-      ]
-    },
-    "/react-query": {
-      "filePath": "react-query.tsx"
-    },
-    "/ssr": {
-      "filePath": "ssr.tsx"
-    },
-    "/loaders/ensure": {
-      "filePath": "loaders/ensure.tsx",
-      "parent": "/loaders"
-    },
-    "/loaders/no-loader": {
-      "filePath": "loaders/no-loader.tsx",
-      "parent": "/loaders"
-    },
-    "/loaders/prefetch": {
-      "filePath": "loaders/prefetch.tsx",
-      "parent": "/loaders"
     }
   }
 }
