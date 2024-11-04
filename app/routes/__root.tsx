@@ -8,7 +8,6 @@ import {
 import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 import * as React from 'react'
 import appCss from '../styles/app.css?url'
-import { cn } from '~/lib/utils'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -58,18 +57,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-slate-900 border-b border-slate-800">
-        <div className="container mx-auto py-4 flex flex-col xl:flex-row gap-4 xl:items-center xl:justify-between">
+    <div>
+      <header>
+        <div>
           <Link to="/">
-            <h1 className="text-2xl font-bold">Convex with TanStack Start</h1>
+            {' '}
+            <h1>Convex with TanStack Start</h1>{' '}
           </Link>
-          <nav></nav>
         </div>
       </header>
-      <main className="container mx-auto py-12 prose-xl prose-slate prose-headings:font-bold prose-ol:pl-0 prose-li:pl-0 prose-a:underline prose-a:underline-offset-3 prose-p:leading-snug transition-colors hover:prose-a:text-white">
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   )
 }
