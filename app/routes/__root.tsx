@@ -9,24 +9,22 @@ import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
 import * as React from 'react'
 import appCss from '../styles/app.css?url'
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
-  {
-    meta: () => [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'TanStack Start Starter',
-      },
-    ],
-    links: () => [{ rel: 'stylesheet', href: appCss }],
-    component: RootComponent,
-  },
-)
+export const Route = createRootRouteWithContext<{}>()({
+  meta: () => [
+    {
+      charSet: 'utf-8',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    {
+      title: 'TanStack Start Starter',
+    },
+  ],
+  links: () => [{ rel: 'stylesheet', href: appCss }],
+  component: RootComponent,
+})
 
 function RootComponent() {
   return (
