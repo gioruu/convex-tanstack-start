@@ -11,10 +11,6 @@ export function createRouter() {
       routeTree,
       defaultPreload: 'intent',
       context: { queryClient },
-      Wrap: ({ children }) => {
-        console.log('wrapped')
-        return <>{children}</>
-      },
     }),
     queryClient,
   )
